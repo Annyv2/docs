@@ -31,7 +31,7 @@ snippets:
 
 ### 1. Installation
 
-Install our meteor package from [Atmosphere](https://atmospherejs.com/) on your meteor application by running this command on your project folder.
+Install our Meteor package from [Atmosphere](https://atmospherejs.com/) on your meteor application by running this command on your project folder.
 
 ```
 meteor add auth0:lock
