@@ -31,7 +31,7 @@ snippets:
 
 ### 1. Installation
 
-Install our meteor package from [Atmosphere](https://atmospherejs.com/) on your meteor application using
+Install our meteor package from [Atmosphere](https://atmospherejs.com/) on your meteor application by running this command on your project folder.
 
 ```
 meteor add auth0:lock
@@ -41,7 +41,7 @@ __Note:__  this package is designed to work with Meteor 1.2.1, so please run `me
 
 ### 2. Before getting started
 
-Create an `.env` file on the root of your application folder, and configure it with your `clientId` and `domain`
+Create an `.env` file on the root of your application folder, and configure it with the following contents:
 
 ````bash
 # .env file
@@ -49,11 +49,11 @@ AUTH0_CLIENT_ID=${account.clientId}
 AUTH0_DOMAIN=${account.namespace}
 ````
 
-Our meteor package then reads the information from this `.env` file and creates a Lock instance.
+Our meteor package reads this information and creates a Lock instance with these settings.
 
 ### 3. Implement the login
 
-To implement the login, call the `.show()` method of Auth0's `lock` instance on the client side of Meteor.
+To implement the login, call the `.show()` method of Auth0's `lock` instance on the client of your Meteor project.
 
 ```js
 #app.js file
