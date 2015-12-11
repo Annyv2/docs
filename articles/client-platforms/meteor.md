@@ -31,13 +31,13 @@ snippets:
 
 ### 1. Installation
 
-Install our Meteor package from [Atmosphere](https://atmospherejs.com/) on your meteor application by running this command on your project folder.
+Install our Meteor package from [Atmosphere](https://atmospherejs.com/) on your Meteor application by running this command on your project folder.
 
 ```
 meteor add auth0:lock
 ``` 
 
-__Note:__  this package is designed to work with Meteor 1.2.1, so please run `meteor update` in the root of your project if you're using an older version.
+__Note:__  this package is designed to work with Meteor __1.2.1__, so please run `meteor update` in the root of your project if you're using an older version.
 
 ### 2. Before getting started
 
