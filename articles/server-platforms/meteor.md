@@ -29,6 +29,8 @@ snippets:
 
 **If you have an existing application, follow the steps below.**
 
+${include('./_callbackRegularWebApp')}
+
 ### 1. Installation
 
 Install our Meteor package from [Atmosphere](https://atmospherejs.com/) on your Meteor application by running this command on your project folder.
