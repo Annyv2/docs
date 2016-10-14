@@ -3,24 +3,18 @@ title: Authenticate
 description: This tutorial will show you how to use the Auth0 PHP Laravel SDK to add authentication and authorization to your API.
 ---
 
+<%= include('../../_includes/_package2', {
+  org: 'auth0-samples',
+  repo: 'auth0-laravel-php-web-api',
+  path: '00-Starter-Seed'
+}) %>
+
 ::: panel-info System Requirements
 This tutorial and seed project have been tested with the following:
 * Composer 1.0-dev
 * PHP 5.6.18
 * Laravel 5.1.31
 :::
-
-<%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-laravel-php-web-api',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-laravel-php-web-api',
-  pkgBranch: 'master',
-  pkgPath: '00-Starter-Seed',
-  pkgFilePath: null,
-  pkgType: 'server'
-}) %>
-
-**Otherwise, Please follow the steps below to configure your existing PHP Laravel app to use it with Auth0.**
 
 ## Laravel Compatibility
 
@@ -112,7 +106,7 @@ If you need to implement a more advanced custom solution, you can always extend 
 For example, if you want to use the default `User` model and store the user profile in your database, you can use the following Repository:
 
 ```php
-<?php 
+<?php
 namespace App\Repository;
 
 use Auth0\Login\Contract\Auth0UserRepository;
@@ -121,7 +115,7 @@ class MyCustomUserRepository implements Auth0UserRepository {
 
     /* This class is used on api authN to fetch the user based on the jwt.*/
     public function getUserByDecodedJWT($jwt) {
-      /* 
+      /*
        * The `sub` claim in the token represents the subject of the token
        * and it is always the `user_id`
        */

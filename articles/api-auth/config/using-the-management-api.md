@@ -2,7 +2,7 @@
 description: How to enable API Authorization using the Auth0 Management API.  
 ---
 
-# API Authorization: Using the Management API
+# API Authorization: Using the Management API for setting up a Client Credentials Grant scenario
 
 If you do not want to use the Auth0 Dashboard to enable API Authorization, you can achieve the same results using the Auth0 Management API.
 
@@ -27,7 +27,7 @@ The following restrictions that apply for the identifier:
 
 The following example uses _"My Sample API"_ as the name and _"https://my-api-uri"_ as the identifier.
 
-`POST` to `${account.tenant}.auth0.com/api/v2/resource-servers` with payload:
+`POST` to `${account.namespace}.auth0.com/api/v2/resource-servers` with payload:
 
 ```
 {
@@ -63,7 +63,7 @@ Response:
 
 Now that the API and the Client are represented in Auth0, you can create a trust relationship between them.
 
-`POST` to `${account.tenant}.auth0.com/api/v2/client-grants` with payload:
+`POST` to `${account.namespace}.auth0.com/api/v2/client-grants` with payload:
 
 ```
 {

@@ -1,17 +1,10 @@
 ---
 title: Login
-description: This tutorial will show you how to use the Auth0 Python SDK to add authentication and authorization to your web app.
+default: true
+description: This tutorial demonstrates how to use the Auth0 Python SDK to add authentication and authorization to your web app
 ---
 
 You can get started by either downloading the seed project or if you would like to add Auth0 to an existing application you can follow the tutorial steps.
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-
-* Python 2.7, 3.5.1
-* Flask 0.10.1 and up
-* Requests 2.3.0 and up
-:::
 
 <%= include('../../_includes/_package', {
   githubUrl: 'https://github.com/auth0-samples/auth0-python-web-app',
@@ -23,21 +16,29 @@ This tutorial and seed project have been tested with the following:
   pkgType: 'server'
 }) %>
 
-**Otherwise, please follow the steps below to configure your existing Python WebApp to use it with Auth0.**
+::: panel-info System Requirements
+This tutorial and seed project have been tested with the following:
 
-### 1. Add dependencies
+* Python 2.7, 3.5.1
+* Flask 0.10.1 and up
+* Requests 2.3.0 and up
+:::
+
+
+
+## Add the Dependencies
 
 ${snippet(meta.snippets.dependencies)}
 
 This example uses `flask` but it could work with any server
 
-### 2. Add the Auth0 Callback Handler
+## Add the Auth0 Callback Handler
 
 You'll need to create a callback handler that Auth0 will call once it redirects to your app. For that, you can do the following:
 
 ${snippet(meta.snippets.setup)}
 
-### 3. Specify the callback on Auth0 Dashboard
+## Specify the Callback URLs
 
 ${include('../_callbackRegularWebApp')}
 
@@ -46,13 +47,14 @@ In this case, the callbackURL should look something like:
 ```
 http://yourUrl/callback
 ```
-### 4. Triggering login manually or integrating the Auth0Lock
 
-${lockSDK}
+## Triggering Login Manually or Integrating Lock
+
+<%= include('../../_includes/_lock-sdk') %>
 
 > **Note:** Please note that the `redirectUrl` specified in the `Auth0Lock` constructor **must match** the URL specified in the previous step
 
-### 5. Accessing user information
+## Accessing User Information
 
 You can access the user information via the `profile` you stored in the session on step 2
 
@@ -73,10 +75,6 @@ def dashboard():
 
 [Click here](/user-profile) to check all the information that the userinfo hash has.
 
-### 6. You're done!
-
-You have configured your Python Webapp to use Auth0. Congrats, you're awesome!
-
 ### Optional steps
 
 #### Checking if the user is authenticated
@@ -94,5 +92,3 @@ def requires_auth(f):
 
   return decorated
 ```
-
-We've actually used the annotation on step 5.

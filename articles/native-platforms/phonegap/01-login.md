@@ -1,14 +1,8 @@
 ---
 title: Login
+default: true
 description: This tutorial will show you how to use the Auth0 Phonegap SDK to add authentication and authorization to your mobile app.
 ---
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-
-* NodeJS 4.3
-* Phonegap 5.5
-:::
 
 <%= include('../../_includes/_package', {
   pkgOrg: 'auth0-samples',
@@ -20,14 +14,19 @@ This tutorial and seed project have been tested with the following:
   pkgType: 'js'
 }) %>
 
-**Otherwise, if you already have an existing application, please follow the steps below.**
+::: panel-info System Requirements
+This tutorial and seed project have been tested with the following:
+
+* NodeJS 4.3
+* Phonegap 5.5
+:::
+
+
 
 ### 1. Setting up the callback URL in Auth0
 
-
-
 <div class="setup-callback">
-<p>Go to the <a href="${uiAppSettingsURL}">Application Settings</a> section in the Auth0 dashboard and make sure that <b>Allowed Callback URLs</b> contains the following value:</p>
+<p>Go to the <a href="${manage_url}/#/applications/${account.clientId}/settings">Application Settings</a> section in the Auth0 dashboard and make sure that <b>Allowed Callback URLs</b> contains the following value:</p>
 
 <pre><code>https://${account.namespace}/mobile</pre></code>
 

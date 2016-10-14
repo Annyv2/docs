@@ -14,7 +14,7 @@ If you are new to refresh tokens, you can learn more about them in this blog pos
 
 The response of an [authentication request](/protocols) can result in an `id_token` (JWT) being issued by Auth0. This token is used to make authenticated calls to a secured API. JWTs have an expiration date indicated by the `exp` claim (among other security measures, like signing). Applications that are installed locally on a device (such as a desktop or smartphone) may want to avoid asking the user to enter their credentials each time this token expires.
 
-A refresh token allows the application to request Auth0 to issue a new `id_token` directly, without needing to re-authenticate the user. This will work as long as the refresh token has not been revoked. 
+A refresh token allows the application to request Auth0 to issue a new `id_token` directly, without needing to re-authenticate the user. This will work as long as the refresh token has not been revoked.
 
 Refresh tokens can be issued for each combination of __app__, __user__ and __device__. Once the Auth0 refresh token is issued, the values of the client, user, and device set during its creation cannot be changed.
 
@@ -32,7 +32,7 @@ To obtain a refresh token, the `offline_access` scope (see: [Scopes](/scopes)) a
 
 For example:
 
-```
+```text
 GET https://${account.namespace}/authorize/?
     response_type=token
     &client_id=${account.clientId}
@@ -47,7 +47,7 @@ GET https://${account.namespace}/authorize/?
 When the authentication flow completes, Auth0 will redirect the user to the `callback_URL` as usual.
 The complete URL will be as follows:
 
-```
+```text
 GET https://YOUR_CALLBACK_URL#
     access_token=2nF...WpA
     &id_token=eyJhb...
@@ -57,13 +57,13 @@ GET https://YOUR_CALLBACK_URL#
 
 The refresh token is returned as part of the URL, in the form of an opaque string.
 
-**NOTE**: In this case, the token was returned to the client directly in the URL because the [implicit flow](/protocols#oauth-for-native-clients-and-javascript-in-the-browser) (`response_type=token`) was used.
+**NOTE**: In this case, the token was returned to the client directly in the URL because the [implicit flow](/protocols#oauth2-implicit-flow) (`response_type=token`) was used.
 
 ## Use a Refresh Token
 
 To obtain a new `id_token`, call the [delegation](/auth-api#!#post--delegation) endpoint in the Authentication API:
 
-```
+```text
 POST https://${account.namespace}/delegation
 Content-Type: 'application/json'
 {
@@ -76,7 +76,7 @@ Content-Type: 'application/json'
 
 A response from this request could be as follows:
 
-```
+```json
 {
   "token_type": "Bearer",
   "expires_in": 36000,
@@ -93,18 +93,18 @@ Obtaining new tokens using the `refresh_token` should occur only if the `id_toke
 
 ## Revoke a Refresh Token
 
-Since refresh tokens never expire, it is important to be able to revoke them. 
+Since refresh tokens never expire, it is important to be able to revoke them.
 
 ### Revoke a Refresh Token using the Management API
 
 To revoke a refresh token using the Auth0 Management API, you need the `id` of the refresh token you wish to revoke. To obtain a list of existing refresh tokens, call the [List device credentials](/api/management/v2#!/Device_Credentials/get_device_credentials) endpoint, specifying `type=refresh_token` with an access token containing `read:device_credentials` scope. To narrow the results, you can also specify the `client_id` and `user_id` associated with the token, if known.
 
-```
+```text
 GET https://${account.namespace}/api/v2/device-credentials?
   type=refresh_token
   &client_id={}
   &user_id={}
-  
+
 {
   "Authorization":   "Bearer {your_access_token}"
 }
@@ -112,7 +112,7 @@ GET https://${account.namespace}/api/v2/device-credentials?
 
 Response body:
 
-```
+```json
 [
   {
     "id": "dcr_dFJiaAxbEroQ5xxx",
@@ -123,7 +123,7 @@ Response body:
 
 To revoke a __refresh token__, call the [Delete a device credential](/api/management/v2#!/Device_Credentials/delete_device_credentials_by_id) endpoint with an access token containing `delete:device_credentials` scope and the value of `id` obtained above:
 
-```
+```text
 DELETE https://${account.namespace}/api/v2/device-credentials/{id}
 
 {

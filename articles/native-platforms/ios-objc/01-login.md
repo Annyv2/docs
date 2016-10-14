@@ -1,14 +1,8 @@
 ---
 title: iOS Objective-C
-description: This tutorial will show you how to use the Auth0 iOS Objective-C SDK to add authentication and authorization to your mobile app.
+default: true
+description: This tutorial demonstrates how to use the Auth0 iOS Objective-C SDK to add authentication and authorization to your mobile app
 ---
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-* CocoaPods 0.39.0
-* XCode 7.2.1
-* Simulator - iOS 9.2 - iPhone 6
-:::
 
 <%= include('../../_includes/_package', {
   pkgRepo: 'native-mobile-samples',
@@ -18,15 +12,23 @@ This tutorial and seed project have been tested with the following:
   pkgType: 'replace'
 }) %>
 
-**Otherwise, if you already have an existing application, please follow the steps below.**
+
+::: panel-info System Requirements
+This tutorial and seed project have been tested with the following:
+* CocoaPods 0.39.0
+* XCode 7.2.1
+* Simulator - iOS 9.2 - iPhone 6
+:::
+
+
 
 ## Initial Setup
 
-Go to the [Application Settings](${uiAppSettingsURL}) section of your app in the Auth0 dashboard and make sure that **Allowed Callback URLs** contains the following value:
+Go to the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) section of your app in the Auth0 dashboard and make sure that **Allowed Callback URLs** contains the following value:
 
 `a0${account.clientId}://\*.auth0.com/authorize`
 
-## Add the Auth0 dependencies
+## Add the Auth0 Dependencies
 
 Add the following to the `Podfile` and run `pod install`:
 
@@ -183,7 +185,7 @@ After the user has logged in, you can use the `profile` object which contains al
 
 ## Additional Information
 
-See [User Profile](/user-profile) to find out all of the available properties of the user profile. 
+See [User Profile](/user-profile) to find out all of the available properties of the user profile.
 
 Also see: [A0UserProfile](https://github.com/auth0/Lock.iOS-OSX/blob/master/Lock/Core/A0UserProfile.h).
 
