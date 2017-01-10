@@ -1,9 +1,10 @@
 ---
 title: Rules
 description: This tutorial demonstrates how to use Auth0 rules to extend what Auth0 has to offer.
+budicon: 173
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-aspnet-owin-mvc-sample',
   path: '05-Rules'
@@ -13,7 +14,7 @@ description: This tutorial demonstrates how to use Auth0 rules to extend what Au
 
 ## Add the country as a claim
 
-The Auth0 OAuth2 middleware will not add the country as a claim, so you will need to do this manually. You can alter the middleware registration in the `Startup` class to pass in a `Auth0AuthenticationOptions`, and then add a `OnAuthenticated` event handler which extracts the country from the `User` object and add it as a claim:
+The Auth0 OAuth2 middleware will not add the country as a claim, so you will need to do this manually. You can alter the middleware registration in the `Startup` class to pass in an `Auth0AuthenticationOptions`, and then add an `OnAuthenticated` event handler which extracts the country from the `User` object and add it as a claim:
 
 ```csharp
 var options = new Auth0AuthenticationOptions

@@ -76,6 +76,22 @@ Auth0 strives to keep these IP addresses stable, though this is not a given. Fro
     <th>Required?</th>
   </tr>
   <tr>
+    <td>All</td>
+    <td>Inbound</td>
+    <td>Your load balancer IP address (often on internal network)</td>
+    <td>80/(443 or 4443)</td>
+    <td>For clusters with more than one node, a load balancer is required for resiliency and performance</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>Webtask</td>
+    <td>Outbound</td>
+    <td>Your load balancer IP address (often on internal network)</td>
+    <td>443</td>
+    <td>Allows rules, webtasks, and extensions to call back to Auth0 endpoints</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
     <td>Command Line Interface</td>
     <td>Inbound</td>
     <td>CLI Clients (often on the internal network)</td>
@@ -95,7 +111,7 @@ Auth0 strives to keep these IP addresses stable, though this is not a given. Fro
     <td>Updates</td>
     <td>Outbound</td>
     <td>docker.it.auth0.com (52.9.124.234)</td>
-    <td>5000</td>
+    <td>443</td>
     <td>Provides updates for Appliance Docker Packages</td>
     <td>Yes</td>
   </tr>
@@ -104,7 +120,7 @@ Auth0 strives to keep these IP addresses stable, though this is not a given. Fro
     <td>Outbound</td>
     <td>cdn.auth0.com</td>
     <td>443</td>
-    <td>Provides update packages for Appliance instances running versions `6868` or earlier</td>
+    <td>Required to run web extensions; Provides update packages for Appliance instances running versions `6868` or earlier</td>
     <td>Yes</td>
   </tr>
   <tr>
@@ -145,4 +161,3 @@ Auth0 strives to keep these IP addresses stable, though this is not a given. Fro
 
 * If you are using social providers for logins, the cluster must be able to connect to the social providers' endpoints.
 * The Jump Host IP is stable and provided at the time of setup.
-* You do not need to allow access to `cdn.auth0.com` for Appliance versions after `6868`.

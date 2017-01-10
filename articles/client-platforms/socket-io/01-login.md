@@ -1,24 +1,18 @@
 ---
 title: Login
 description: This tutorial demonstrates how to use the Auth0 Socket.io SDK to add authentication and authorization to your web app
+budicon: 448
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-socket.io-samples/tree/master/00-Starter-Seed',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-socket.io-samples',
-  pkgBranch: 'master',
-  pkgPath: '00-Starter-Seed',
-  pkgFilePath: null,
-  pkgType: 'server'
+  org: 'auth0-samples',
+  repo: 'auth0-socket.io-samples',
+  path: '00-Starter-Seed',
+  requirements: [
+    'Socket.io 1.4.5',
+    'NodeJS 5.0.0'
+  ]
 }) %>
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-* Socket.io 1.4.5
-* NodeJS 5.0.0
-:::
-
 
 
 ## 1. Set up the Allowed Origin (CORS) in Auth0
@@ -70,14 +64,13 @@ var socketioJwt = require('socketio-jwt');
 
 io
   .on('connection', socketioJwt.authorize({
-    secret: Buffer('${account.clientSecret}', 'base64'),
+    secret: '${account.clientSecret}',
     timeout: 15000 // 15 seconds to send the authentication message
   })).on('authenticated', function(socket) {
     //this socket is authenticated, we are good to handle more events from it.
     console.log('hello! ' + JSON.stringify(socket.decoded_token));
   });
 ```
-**Note:** If you are not using a base64-encoded secret, then you don't need to convert it to a Buffer, so you can use: `secret: 'your secret or public key'`.
 
 ## 7. Load the socket.io-client
 
@@ -98,3 +91,5 @@ Add the following snippet before the `</body>` on `index.html`
 ```
 
 No URL is specified when doing `var socket = io();`, because the default behaviour is to connect to the host that serves the page.
+
+<%= include('../_includes/_persisting_state') %>

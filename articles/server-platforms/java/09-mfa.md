@@ -1,16 +1,17 @@
 ---
 title: Multifactor Authentication
 description: This tutorial demonstrates how to add Multifactor Authentication to your Java web app with Auth0
+budicon: 243
 ---
 
 <%= include('../../_includes/_package', {
-githubUrl: 'https://github.com/auth0-samples/auth0-servlet-sample/tree/master/09-MFA',
-pkgOrg: 'auth0-samples',
-pkgRepo: 'auth0-servlet-sample',
-pkgBranch: 'master',
-pkgPath: '09-MFA',
-pkgFilePath: null,
-pkgType: 'none'
+  org: 'auth0-samples',
+  repo: 'auth0-servlet-sample',
+  path: '09-MFA',
+  requirements: [
+    'Java 7 or above',
+    'Maven 3.0.x or above'
+  ]
 }) %>
 
 <%= include('../_includes/_mfa-introduction') %>
@@ -23,4 +24,4 @@ In this tutorial, you will learn how to enable MFA in the Java application you c
 
 ## Login
 
-<%= include('../_includes/_mfa-login', { loginlink: '01-login' }) %>
+<%= include('../_includes/_mfa-login', { loginlink: '/quickstart/webapp/java/01-login' }) %>

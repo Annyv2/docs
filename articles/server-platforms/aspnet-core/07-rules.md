@@ -1,19 +1,14 @@
 ---
 title: Rules
 description: This tutorial will show you how to use Auth0 rules to extend what Auth0 has to offer.
+budicon: 173
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-aspnetcore-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-aspnetcore-sample',
-  pkgBranch: 'master',
-  pkgPath: '07-Rules',
-  pkgFilePath: '07-Rules/SampleMvcApp/appsettings.json',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-aspnetcore-sample',
+  path: '07-Rules'
 }) %>
-
-
 
 <%= include('../_includes/_rules-introduction') %>
 
@@ -82,6 +77,26 @@ And finally display the country in the profile view:
   </div>
 </div>
 ```
+
+## Ensure the Country scope is requested
+
+You will also need to ensure that you request the `country` scope. This will ensure that the `country` claim is returned in the `id_token`. Go back to the `Configure` method of the `Startup` class and update the registration of the OIDC middleware to request the `country` scope:
+
+```csharp
+var options = new OpenIdConnectOptions("Auth0")
+{
+    // Code omitted for brevity...
+};
+options.Scope.Clear();
+options.Scope.Add("openid");
+options.Scope.Add("name");
+options.Scope.Add("email");
+options.Scope.Add("picture");
+options.Scope.Add("country");
+app.UseOpenIdConnectAuthentication(options);
+```
+
+## Run the application
 
 Now when you run the application you will be able to see the user's country displayed:
 

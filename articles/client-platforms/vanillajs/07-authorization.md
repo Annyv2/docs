@@ -1,15 +1,16 @@
 ---
 title: Authorization
 description: This tutorial demonstrates how to assign roles to your users, and use those claims to authorize or deny a user to access certain routes in the app
+budicon: 500
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-javascript-spa',
   path: '07-Authorization'
 }) %>
 
-<%= include('../_includes/_authorization-introduction', { ruleslink: '/docs/quickstart/spa/vanillajs/06-rules' }) %>
+<%= include('../_includes/_authorization-introduction', { ruleslink: '/quickstart/spa/vanillajs/06-rules' }) %>
 
 ### Create a Rule to Assign Roles
 
@@ -21,8 +22,6 @@ To restrict access to certain routes, create a function that handles conditional
 
 ```js
 // app.js
-
-...
 
 var route = function() {
 
@@ -67,7 +66,7 @@ var route = function() {
   }
 };
 
-...
+// ...
 
 var hide = function(element) {
   element.style.display = "none";
@@ -78,15 +77,12 @@ var show = function(element) {
 };
 
 route();
-...
 ```
 
 The route function checks to determine whether the user is authenticated and then checks to see if he/she is an `admin` or `user` by employing the `isAdmin` and `isUser` functions, respectively. This method checks if the `roles` attribute of `app_metadata` added by the rule contains either `admin` or `user`.
 
 ```js
 // app.js
-
-...
 
 var isAdmin = function(profile) {
   if (profile &&
@@ -109,8 +105,6 @@ var isUser = function(profile) {
      return false;
   }
 };
-
-...
 ```
 
 Now, if the user logs in with an email that contains `@example.com`, they will be allowed to access the `/admin` route. Otherwise, the user will only be allowed to access `/` and `/user`.

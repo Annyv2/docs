@@ -17,7 +17,19 @@
   },
   {
     "from": "/nodejs-tutorial",
-    "to": "/server-platforms/nodejs"
+    "to": "/quickstart/webapp/nodejs"
+  },
+  {
+    "from": "/server-platforms/nodejs",
+    "to": "/quickstart/webapp/nodejs"
+  },
+  {
+    "from": "/client-platforms/react",
+    "to": "/quickstart/spa/react"
+  },
+  {
+    "from": "/server-platforms/golang",
+    "to": "/quickstart/webapp/golang"
   },
   {
     "from": "/phpapi-tutorial",
@@ -65,7 +77,15 @@
   },
   {
     "from": "/php-tutorial",
-    "to": "/server-platforms/php"
+    "to": "/quickstart/webapp/php"
+  },
+  {
+    "from": "/server-platforms/php",
+    "to": "/quickstart/webapp/php"
+  },
+  {
+    "from": "/server-apis/ruby",
+    "to": "/quickstart/backend/ruby"
   },
   {
     "from": "/java-tutorial",
@@ -297,11 +317,23 @@
   },
   {
     "from": "/android-tutorial",
-    "to": "/native-platforms/android"
+    "to": "/quickstart/native/android"
+  },
+  {
+    "from": "/native-platforms/android",
+    "to": "/quickstart/native/android"
   },
   {
     "from": "/angular-tutorial",
-    "to": "/client-platforms/angularjs"
+    "to": "/quickstart/spa/angularjs"
+  },
+  {
+    "from": "/client-platforms/angularjs",
+    "to": "/quickstart/spa/angularjs"
+  },
+  {
+    "from": "/client-platforms/angular2",
+    "to": "/quickstart/spa/angular2"
   },
   {
     "from": "/aspnetwebapi-owin-tutorial",
@@ -313,11 +345,19 @@
   },
   {
     "from": "/ember-tutorial",
-    "to": "/client-platforms/emberjs"
+    "to": "/quickstart/spa/emberjs"
+  },
+  {
+    "from": "/client-platforms/emberjs",
+    "to": "/quickstart/spa/emberjs"
   },
   {
     "from": "/ios-tutorial",
-    "to": "/native-platforms/ios-objc"
+    "to": "/quickstart/native/ios-objc"
+  },
+  {
+    "from": "/native-platforms/ios-objc",
+    "to": "/quickstart/native/ios-objc"
   },
   {
     "from": "/java-tutorial",
@@ -337,7 +377,11 @@
   },
   {
     "from": "/singlepageapp-tutorial",
-    "to": "/client-platforms/vanillajs"
+    "to": "/quickstart/spa/vanillajs"
+  },
+  {
+    "from": "/client-platforms/vanillajs",
+    "to": "/quickstart/spa/vanillajs"
   },
   {
     "from": "/wcf-tutorial",
@@ -397,15 +441,15 @@
   },
   {
     "from": "/okta",
-    "to": "/saml/identity-providers/okta"
+    "to": "/protocols/saml/identity-providers/okta"
   },
   {
     "from": "/onelogin",
-    "to": "/saml/identity-providers/onelogin"
+    "to": "/protocols/saml/identity-providers/onelogin"
   },
   {
     "from": "/ping7",
-    "to": "/saml/identity-providers/ping7"
+    "to": "/protocols/saml/identity-providers/ping7"
   },
   {
     "from": "/passwordless",
@@ -413,11 +457,11 @@
   },
   {
     "from": "/siteminder",
-    "to": "/saml/identity-providers/siteminder"
+    "to": "/protocols/saml/identity-providers/siteminder"
   },
   {
     "from": "/ssocircle",
-    "to": "/saml/identity-providers/ssocircle"
+    "to": "/protocols/saml/identity-providers/ssocircle"
   },
   {
     "from": "/wsfedwebapp-tutorial",
@@ -480,6 +524,10 @@
     "to": "/api/authentication"
   },
   {
+    "from": "/api/authentication/reference",
+    "to": "/api/authentication"
+  },
+  {
     "from": "/oauth2",
     "to": "/connections/social/oauth2"
   },
@@ -518,6 +566,10 @@
   {
     "from": "/quickstart/native-mobile/:platform/rails-api",
     "to": "/quickstart/native-mobile/:platform/rails"
+  },
+  {
+    "from": "/quickstart/native-mobile/:platform/:api",
+    "to": "/quickstart/native-mobile/:platform"
   },
   {
     "from": "/mfa",
@@ -781,12 +833,16 @@
     "to": "/tutorials/generic-oauth2-connection-examples"
   },
   {
-    "from": "/step-up-authentication",
-    "to": "/tutorials/setup-up-authentication"
+    "from": "/tutorials/setup-up-authentication",
+    "to": "/tutorials/step-up-authentication"
   },
   {
     "from": "/refresh-token",
     "to": "/tokens/refresh-token"
+  },
+  {
+    "from": "/tokens/access_token",
+    "to": "/tokens/access-token"
   },
   {
     "from": "/salesforce-community",
@@ -810,7 +866,7 @@
   },
   {
     "from": "/custom-signup",
-    "to": "/libraries/lock/v10/custom-signup"
+    "to": "/libraries/custom-signup"
   },
   {
     "from": "/custom-error-pages",
@@ -858,7 +914,11 @@
   },
   {
     "from": "/har",
-    "to": "/tutorials/troubleshootings-with-har-files"
+    "to": "/tutorials/troubleshooting-with-har-files"
+  },
+  {
+    "from": "/tutorials/troubleshootings-with-har-files",
+    "to": "/tutorials/troubleshooting-with-har-files"
   },
   {
     "from": "/hrd",
@@ -962,14 +1022,146 @@
   },
   {
     "from": "/oauth-web-protocol",
-    "to": "/protocols/oauth-web-protocol"
+    "to": "/protocols/oauth2/oauth-web-protocol"
+  },
+  {
+    "from": "/protocols/oauth-web-protocol",
+    "to": "/protocols/oauth2/oauth-web-protocol"
   },
   {
     "from": "/oauth-implicit-protocol",
-    "to": "/protocols/oauth-implicit-protocol"
+    "to": "/protocols/oauth2/oauth-implicit-protocol"
+  },
+  {
+    "from": "/protocols/oauth-state",
+    "to": "/protocols/oauth2/oauth-state"
   },
   {
     "from": "/metadata/apiv2",
     "to": "/metadata/management-api"
+  },
+  {
+    "from": "/applications",
+    "to": "/clients"
+  },
+  {
+    "from": "/saml-apps",
+    "to": "/protocols/saml/saml-apps"
+  },
+  {
+    "from": "/saml-configuration",
+    "to": "/protocols/saml/saml-configuration"
+  },
+  {
+    "from": "/saml-idp-generic",
+    "to": "/protocols/saml/saml-idp-generic"
+  },
+  {
+    "from": "/saml-sp-generic",
+    "to": "/protocols/saml/saml-sp-generic"
+  },
+  {
+    "from": "/saml2webapp-tutorial",
+    "to": "/protocols/saml/saml2webapp-tutorial"
+  },
+  {
+    "from": "/samlp-providers",
+    "to": "/protocols/saml/samlp-providers"
+  },
+  {
+    "from": "/samlp",
+    "to": "/protocols/saml/samlp"
+  },
+  {
+    "from": "/samlsso-auth0-to-auth0",
+    "to": "/protocols/saml/samlsso-auth0-to-auth0"
+  },
+  {
+    "from": "/error-pages",
+    "to": "/hosted-pages/error-pages"
+  },
+  {
+    "from": "/error-pages/custom",
+    "to": "/hosted-pages/custom-error-pages"
+  },
+  {
+    "from": "/error-pages/generic",
+    "to": "/hosted-pages/error-pages"
+  },
+  {
+    "from": "/saml/identity-providers/okta",
+    "to": "/protocols/saml/identity-providers/okta"
+  },
+  {
+    "from": "/saml/identity-providers/onelogin",
+    "to": "/protocols/saml/identity-providers/onelogin"
+  },
+  {
+    "from": "/saml/identity-providers/ping7",
+    "to": "/protocols/saml/identity-providers/ping7"
+  },
+  {
+    "from": "/saml/identity-providers/salesforce",
+    "to": "/protocols/saml/identity-providers/salesforce"
+  },
+  {
+    "from": "/saml/identity-providers/siteminder",
+    "to": "/protocols/saml/identity-providers/siteminder"
+  },
+  {
+    "from": "/saml-apps/cisco-webex",
+    "to": "/protocols/saml/saml-apps/cisco-webex"
+  },
+  {
+    "from": "/saml-apps/datadog",
+    "to": "/protocols/saml/saml-apps/datadog"
+  },
+  {
+    "from": "/saml-apps/freshdesk",
+    "to": "/protocols/saml/saml-apps/freshdesk"
+  },
+  {
+    "from": "/saml-apps/heroku-sso",
+    "to": "/protocols/saml/saml-apps/heroku"
+  },
+  {
+    "from": "/saml-apps/litmos",
+    "to": "/protocols/saml/saml-apps/litmos"
+  },
+  {
+    "from": "/saml-apps/sprout-video",
+    "to": "/protocols/saml/saml-apps/sprout-video"
+  },
+  {
+    "from": "/libraries/lock-android/use-your-own-ui",
+    "to": "/libraries/lock-android/custom-theming"
+  },
+  {
+    "from": "/libraries/lock-android/native-social-authentication",
+    "to": "/libraries/lock-android/custom-authentication-providers"
+  },
+  {
+    "from": "/onboarding/appliance-outage",
+    "to": "/appliance/critical-issue"
+  },
+  {
+    "from": "/libraries/lock/v10/custom-signup",
+    "to": "/libraries/custom-signup"
+  },
+  {
+    "from": "/tutorials/local-testing-and-development",
+    "to": "/dev-lifecycle/local-testing-and-development"
+  },
+  {
+    "from": "/tutorials/development-lifecycle-with-auth0",
+    "to": "/dev-lifecycle/setting-up-env"
+  },
+  {
+    "from": "/tokens/id_token",
+    "to": "/tokens/id-token"
+  },
+  {
+    "from": "/connections",
+    "to": "/identityproviders"
   }
 ]

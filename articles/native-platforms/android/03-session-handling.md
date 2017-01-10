@@ -1,18 +1,20 @@
 ---
 title: Session Handling
 description: This tutorial will show you how to use Lock v2 to maintain a session’s connectivity.
+budicon: 280
 ---
 
 This tutorial will show you how to use Lock to maintain an active session with Auth0.
 
- <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-android-sample/tree/master/03-Session-Handling',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-android-sample',
-  pkgBranch: 'master',
-  pkgPath: '03-Session-Handling',
-  pkgFilePath: '03-Session-Handling/app/src/main/res/values/strings.xml',
-  pkgType: 'replace'
+<%= include('../../_includes/_package', {
+  org: 'auth0-samples',
+  repo: 'auth0-android-sample',
+  path: '03-Session-Handling',
+  requirements: [
+    'Android Studio 2.2',
+    'Android SDK 24',
+    'Emulator - Nexus 5X - Android 6.0'
+  ]
 }) %>
 
 
@@ -76,7 +78,7 @@ aClient.tokenInfo(CredentialsManager.getCredentials(this).getIdToken())
 
   @Override
   public void onFailure(AuthenticationException error) {
-    // Invalid ID Scenario    
+    // Invalid ID Scenario
   }
 });
 ```
@@ -116,7 +118,7 @@ client.delegationWithIdToken(idToken)
     //Show error to the user
   }
 });
-```         
+```
 
 ### ii. Using refreshToken
 
@@ -139,7 +141,7 @@ client.delegationWithRefreshToken(refreshToken)
 
   }
 });
-```     
+```
 
 > It is recommended that you read and understand the [refresh token documentation](/refresh-token) before proceeding. For example, you should remember that even though the refresh token cannot expire, it can be revoked.
 

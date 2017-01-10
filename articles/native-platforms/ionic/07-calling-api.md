@@ -1,18 +1,17 @@
 ---
 title: Calling APIs
 description: This tutorial demonstrates how to make secure calls to an API
+budicon: 546
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-ionic-samples',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-ionic-samples',
-  pkgBranch: 'master',
-  pkgPath: '07-Calling-Api',
-  pkgFilePath: '07-Calling-Api/www/auth0.variables.js',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-ionic-samples',
+  path: '07-Calling-Api',
+  requirements: [
+    'Ionic 1.3.1'
+  ]
 }) %>
-
 
 
 <%= include('../../_includes/_calling_apis') %>
@@ -25,13 +24,9 @@ To attach the user's JWT as an `Authorization` header, we could write a service 
 // www/app.js
 
 (function () {
-
   ...
- 
   function config($stateProvider, $urlRouterProvider, lockProvider, jwtOptionsProvider, $httpProvider) {
-
     ...
-
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
       tokenGetter: function() {
@@ -53,31 +48,23 @@ To attach the user's JWT as an `Authorization` header, we could write a service 
 
 This basic example will attach the JWT as an `Authorization` header to all requests. This may not be desired as some requests don't require authentication. You can choose not to send the JWT by specifying `skipAuthorization: true`.
 
-```js 
+```js
 // www/components/home/home.service.js
 
 (function () {
-
   ...
-  
   function HomeController($state, authService, $scope, $http, $ionicPopup) {
     var vm = this;
-
-  ...
-  
+    ...
     vm.ping = ping;
-
-  ...
-
+    ...
     function ping() {
     // This request will NOT send the token as it has skipAuthorization
       $http.get(SERVER_PATH + '/ping', { skipAuthorization: true })
         .success(onPingSuccess)
         .error(onPingFail);
     }
-
-  ...
-
+    ...
 }());
 ```
 
@@ -89,13 +76,9 @@ Remember that template requests via `ui-router` or `ng-route` are HTTP requests.
 // www/app.js
 
 (function () {
-
   ...
- 
   function config($stateProvider, $urlRouterProvider, lockProvider, jwtOptionsProvider, $httpProvider) {
-
     ...
-
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
       tokenGetter: function(options) {
@@ -103,7 +86,7 @@ Remember that template requests via `ui-router` or `ng-route` are HTTP requests.
     if (options.url.substr(options.url.length - 5) == '.html') {
       return null;
     }
-    
+
         return localStorage.getItem('id_token');
       },
       whiteListedDomains: ['localhost'],
@@ -126,13 +109,9 @@ If for any reason you would want to send different tokens based on different URL
 // www/app.js
 
 (function () {
-
   ...
- 
   function config($stateProvider, $urlRouterProvider, lockProvider, jwtOptionsProvider, $httpProvider) {
-
     ...
-
     // Configuration for angular-jwt
     jwtOptionsProvider.config({
       tokenGetter: function(options) {
@@ -141,7 +120,7 @@ If for any reason you would want to send different tokens based on different URL
         } else {
           return localStorage.getItem('id_token');
         }
-    
+
         return localStorage.getItem('id_token');
       },
       whiteListedDomains: ['localhost'],

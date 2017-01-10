@@ -1,4 +1,5 @@
 ---
+section: libraries
 description: Lock V10 documentation on setting authentication parameters.
 ---
 
@@ -16,7 +17,7 @@ var options = {
 };  
 ```
 
-The following parameters are supported: `access_token`, `scope`, `protocol`, `device`, `request_id`, `connection_scopes`, `nonce` and `state`.
+The following parameters are supported: `access_token`, `scope`, `protocol`, `device`, `request_id`, `nonce` and `state`.
 
 ::: panel-info Note
 This would be analogous to triggering the login with `https://${account.namespace}/authorize?state=foo&...`.
@@ -57,51 +58,15 @@ authProvider.init({
 });
 ```
 
-### connection_scopes {Object}
-
-The `connection_scopes` parameter allows for dynamically specifying scopes on any connection. This is useful if you want to initially start with a set of scopes (defined on the dashboard), but later on request the user for extra permissions or attributes.
-
-The object keys must be the names of the connections and the values must be arrays containing the scopes to request to append to the dashboard specified scopes. An example is shown below:
-
-```js
-var options = {
-  auth: {
-    params: {scope: 'openid email user_metadata app_metadata picture'},
-  }
-};  
-```
-
-```js
-var options = {
-  auth: {
-    params: {
-      allowedConnections: ['facebook', 'google-oauth2', 'twitter', 'Username-Password-Authentication', 'fabrikam.com'],
-      connection_scopes: {
-        'facebook': ['public_profile', 'user_friends'],
-        'google-oauth2': ['https://www.googleapis.com/auth/orkut'],
-        // none for twitter
-      }
-    }
-  }
-}
-```
-
-::: panel-warning Scope values
- The values for each scope are not transformed in any way. They must match exactly the values recognized by each identity provider.
-:::
-
-
 ### state {string}
 
-The `state` parameter is an arbitrary state value that will be mantained across redirects. It is useful to mitigate [XSRF attacks](http://en.wikipedia.org/wiki/Cross-site_request_forgery) and for any contextual information (such as a return url) that you might need after the authentication process is finished.
+The `state` parameter is an arbitrary state value that will be mantained across redirects. It is useful to mitigate [XSRF attacks](http://en.wikipedia.org/wiki/Cross-site_request_forgery) and for any contextual information, [such as a return url](/tutorials/redirecting-users), that you might need after the authentication process is finished.
 
-#### Getting the `state` value in a rule
-
-If you need to access the `state` parameter within a rule you must take in consideration that, depending on the type of connection used, it might come either in the body of the request or in the query string, so you should do:
-
-```js
-var state = context.request.query.state || context.request.body.state;.
-```
+[Click here to learn more about how to send/receive the state parameter.](/protocols/oauth-state)
 
 <%= include('../_includes/_lock-toc') %>
+
+::: panel-info Connection Scopes
+There is also a `connectionScopes` configuration option for Lock 10, which allows you to specify scopes on any connection. This will be useful if you want to initially start with a set of scopes (defined on the dashboard), but later on request additional permissions or attributes. Read more about it on the [Lock Configuration Options](/libraries/lock/v10/customization#connectionscopes-object-) page.
+:::
 

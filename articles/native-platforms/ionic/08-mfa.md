@@ -1,19 +1,17 @@
 ---
 title: Multifactor Authentication
 description: This tutorial demonstrates how to add Multifactor Authentication to your Ionic app
+budicon: 546
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-ionic-samples',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-ionic-samples',
-  pkgBranch: 'master',
-  pkgPath: '08-MFA',
-  pkgFilePath: '08-MFA/www/auth0.variables.js',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-ionic-samples',
+  path: '08-MFA',
+  requirements: [
+    'Ionic 1.3.1'
+  ]
 }) %>
-
-
 
 <%= include('../_includes/_mfa-introduction') %>
 
@@ -25,4 +23,4 @@ In this tutorial, you will learn how to enable MFA in the Ionic application you 
 
 ## Login
 
-<%= include('../_includes/_mfa-login', { loginlink: '/docs/quickstart/native/ionic/01-login' }) %>
+<%= include('../_includes/_mfa-login', { loginlink: '/quickstart/native/ionic/01-login' }) %>

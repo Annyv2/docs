@@ -1,9 +1,10 @@
 ---
 title: Custom Login
 description: This tutorial demonstrates how to use the Auth0 library to add custom authentication and authorization to your web app
+budicon: 448
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-javascript-spa',
   path: '02-Custom-Login'
@@ -19,9 +20,7 @@ First, add the `auth0.js` library to your application:
 ```html
 <!-- index.html -->
 <head>
-  ...
   <script src="${auth0js_url}"></script>
-  ...
 </head>
 ```
 
@@ -36,7 +35,6 @@ window.addEventListener('load', function() {
     callbackURL: '<%= account.callback %>',
     responseType: 'token'
   });
-  ...
 });
 ```
 
@@ -73,8 +71,7 @@ Check for `hash` information using Auth0's `parseHash` method, which will extrac
 ```js
 // app.js
 
-...
-
+// ...
 var parseHash = function() {
   var token = localStorage.getItem('id_token');
   if (token) {
@@ -92,15 +89,12 @@ var parseHash = function() {
 };
 
 parseHash();
-...
 ```
 
 Add a form to call the login:
 
 ```html
 <!-- index.html -->
-
-...
 
 <form class="form-signin">
   <h2 class="form-signin-heading">Please sign in</h2>
@@ -110,8 +104,6 @@ Add a form to call the login:
   <input type="password" id="password" class="form-control" placeholder="Password" required>
   <button class="btn btn-lg btn-default" type="button" id="btn-login">Sign In</button>
 </form>
-
-...
 ```
 
 ## Add Sign Up
@@ -120,8 +112,6 @@ To allow users to sign up, provide a `signup` method:
 
 ```js
 // app.js
-
-...
 
 document.getElementById('btn-register').addEventListener('click', function() {
   var username = document.getElementById('username').value;
@@ -135,8 +125,6 @@ document.getElementById('btn-register').addEventListener('click', function() {
     if (err) alert("something went wrong: " + err.message);
   });
 });
-
-...
 ```
 
 Add a **Sign Up** button to call this method:
@@ -144,11 +132,7 @@ Add a **Sign Up** button to call this method:
 ```html
 <!-- index.html -->
 
-...
-
 <button class="btn btn-lg btn-primary" type="button" id="btn-register">Sign Up</button>
-
-...
 ```
 
 ## Add Social Login
@@ -158,8 +142,6 @@ To log in using a social connection, set the `connection` property of the `login
 ```js
 // app.js
 
-...
-
 document.getElementById('btn-google').addEventListener('click', function() {
   auth0.login({
     connection: 'google-oauth2'
@@ -167,8 +149,6 @@ document.getElementById('btn-google').addEventListener('click', function() {
     if (err) alert("something went wrong: " + err.message);
   });
 });
-
-...
 ```
 
 Add a button to call this method:
@@ -176,9 +156,5 @@ Add a button to call this method:
 ```html
 <!-- index.html -->
 
-...
-
 <button class="btn btn-lg btn-danger" type="button" id="btn-google">Google</button>
-
-...
 ```

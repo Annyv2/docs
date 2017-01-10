@@ -1,12 +1,16 @@
 ---
 title: Login
 description: This tutorial demonstrates how to use the Auth0 jQuery SDK to add authentication and authorization to your web app
+budicon: 448
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-jquery-samples',
-  path: '01-Login'
+  path: '01-Login',
+  requirements: [
+    'jQuery 3.1.0'
+  ]
 }) %>
 
 ${include('../\_callback')}
@@ -38,10 +42,10 @@ if (id_token) {
 ```
 
 ```html
-  <!-- index.html -->
+<!-- index.html -->
 
-  <img class="avatar">
-  <p>Welcome <span class="nickname"></span></p>
+<img class="avatar">
+<p>Welcome <span class="nickname"></span></p>
 ```
 
 To discover all the available properties of a user's profile, see [Auth0 Normalized User Profile](/user-profile). Note that the properties available depend on the social provider used.
@@ -57,3 +61,5 @@ localStorage.removeItem('id_token');
 userProfile = null;
 window.location.href = "/";
 ```
+
+<%= include('../_includes/_persisting_state') %>

@@ -22,7 +22,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Next, in the `Configure` method of the `Startup` class add the cookie middleware and the OpenID Connect middleware. Middleware executes in the order they are registered so it is important to register the cookie middleware first, and then the OIDC middleware. 
 
-Both these middleware should be registered before your MVC middleware in order for your controllers to be protected:
+Both these middleware should be registered before your MVC middleware in order for your controllers to be protected. The OIDC middleware is required in order to authenticate the user with Auth0. Once the user has authenticated they will be signed in to the Cookie middleware which will be used to authenticate all subsequent requests.
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<Auth0Settings> auth0Settings)
@@ -50,7 +50,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     });
 
     // Add the OIDC middleware
-    app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions("Auth0")
+    var options = new OpenIdConnectOptions("Auth0")
     {
         // Set the authority to your Auth0 domain
         Authority = $"https://{auth0Settings.Value.Domain}",
@@ -66,13 +66,16 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
         // Set response type to code
         ResponseType = "code",
 
-        // Set the callback path, so Auth0 will call back to http://localhost:60856/signin-auth0 
+        // Set the callback path, so Auth0 will call back to http://localhost:5000/signin-auth0 
         // Also ensure that you have added the URL as an Allowed Callback URL in your Auth0 dashboard 
         CallbackPath = new PathString("/signin-auth0"),
 
         // Configure the Claims Issuer to be Auth0
         ClaimsIssuer = "Auth0"
-    });
+    };
+    options.Scope.Clear();
+    options.Scope.Add("openid");
+    app.UseOpenIdConnectAuthentication(options);
 
     app.UseMvc(routes =>
     {
@@ -82,6 +85,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     });
 }
 ```
+
+Also note above that the list of scopes is cleared and only the `openid` scope is requested. By default the OIDC middleware will request both the `openid` and the `profile` scopes and can result in a large `id_token` being returned. It is suggested that you be more explicit about the scopes you want returned and not ask for the entire profile to be returned. Requesting additional scopes is discussed later in the [User Profile step](/quickstart/webapp/aspnet-core/05-user-profile). 
 
 ## Add Login and Logout Methods
 
@@ -142,24 +147,6 @@ Lastly add Login and Logout links to the navigation bar. To do that, head over t
         </div>
     </div>
 </div>
-<script src="${lock_url}"></script>
-<script>
-
-  var lock = new Auth0Lock('@Model.ClientId', '@Model.Domain', {
-      container: 'root',
-      auth: {
-        redirectUrl: '@Model.CallbackUrl',
-        responseType: 'code',
-        params: {
-            scope: 'openid profile', //Details: https:///scopes
-            state: '@Model.State',
-            nonce: '@Model.Nonce'
-        }
-    }
-  });
-
-  lock.show();
-</script>
 ```
 
 ## Run the Application

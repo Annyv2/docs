@@ -1,15 +1,16 @@
 ---
 title: Customizing Lock
 description: This tutorial will show you how to customize lock widget.
+budicon: 285
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-react-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-react-sample',
-  pkgBranch: 'master',
-  pkgPath: '10-Customizing-Lock',
-  pkgType: 'server'
+  org: 'auth0-samples',
+  repo: 'auth0-react-sample',
+  path: '10-Customizing-Lock',
+  requirements: [
+    'React 15.3'
+  ]
 }) %>
 
 Using Lock is easy, but you may want to customize your login UI. For that, there are several [customization options](/libraries/lock/v10/customization) available.
@@ -18,15 +19,15 @@ Using Lock is easy, but you may want to customize your login UI. For that, there
 
 Some UI customization can be done via the `options` parameter when creating a `Lock` instance.
 
-### Theme options
+## Theme options
 
 You can set custom theme properties, such as a different logo or primary color, by adding a `theme` property with custom values when initializing the auth0 Lock widget. For more information, see: [Theming Options](/libraries/lock/v10/customization#theming-options).
 
 Modify `AuthService.js` to apply a custom theme:
 
 ```javascript
-/* ===== ./src/utils/AuthService.js ===== */
-... //omitting some code
+// src/utils/AuthService.js
+
 import LogoImg from 'images/test-icon.png';
 
 export default class AuthService extends EventEmitter {
@@ -37,22 +38,25 @@ export default class AuthService extends EventEmitter {
       theme: {
         logo: LogoImg,
         primaryColor: "#b81b1c"
+      },
+      auth: {
+        redirectUrl: 'http://localhost:3000/login',
+        responseType: 'token'
       }
     })
-    ... //omitting some code
+    // ...
   }
-  ... //omitting some code
+  // ...
 }
 ```
 
-### Language Dictionary Specification
+## Language Dictionary Specification
 
-You can also customize the text that `Lock` will display with the `languageDictionary` option parameter. 
+You can also customize the text that `Lock` will display with the `languageDictionary` option parameter.
  For more information, see: [Language Dictionary Specification](/libraries/lock/v10/customization#languagedictionary-object-).
 
 ```javascript
-/* ===== ./src/utils/AuthService.js ===== */
-... //omitting some code
+// src/utils/AuthService.js
 
 export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
@@ -63,13 +67,13 @@ export default class AuthService extends EventEmitter {
         title: "My Company"
       }
     })
-    ... //omitting some code
+    // ...
   }
-  ... //omitting some code
+  // ...
 }
 ```
 
-### Results
+## Results
 
 This is how Lock will appear using a custom logo, color, and title:
 

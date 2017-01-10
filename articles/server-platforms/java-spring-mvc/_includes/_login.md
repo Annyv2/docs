@@ -1,6 +1,6 @@
 ## Authenticate the User
 
-You need to add the handler for the Auth0 callback so that you can authenticate the user and get his information. For that, we will use the `Auth0CallbackHandler` provided by the SDK.
+You need to add the handler for the Auth0 callback so that you can authenticate the user and get their information. For that, we will use the `Auth0CallbackHandler` provided by the SDK.
 
 Define a new Controller, configure it to use the `auth0.loginCallback` endpoint, and inherit from `Auth0CallbackHandler`.
 
@@ -23,7 +23,7 @@ ${'<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>'}
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/css/jquery.growl.css"/>
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+    <script src="${lock_url}"></script>
     <script src="/js/jquery.growl.js" type="text/javascript"></script>
 </head>
 <body>
@@ -191,4 +191,4 @@ Once you login you are redirected to the home page that displays your profile pi
 
 ![Display user information](/media/articles/java/display-user-info.png)
 
-Logout by clicking the **Logout** button at the top right of the home page.
+Log out by clicking the **Logout** button at the top right of the home page.

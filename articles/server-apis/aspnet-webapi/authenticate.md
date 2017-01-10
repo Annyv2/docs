@@ -4,25 +4,18 @@ description: This tutorial will show you how to use the Auth0 ASP.NET Web API SD
 ---
 
 <%= include('../../_includes/_package', {
-  pkgRepo: 'auth0-aspnet',
-  pkgBranch: 'master',
-  pkgPath: 'examples/webapi',
-  pkgFilePath: 'examples/webapi/Api/Web.config',
-  pkgType: 'replace'
+  org: 'auth0',
+  repo: 'auth0-aspnet',
+  path: 'examples/webapi',
+  requirements: [
+    'Microsoft Visual Studio 2015',
+    'WebApi.JsonWebToken NuGet Package v0.2.0',
+    'Auth0-ASPNET NuGet Package v1.4.0',
+    'Microsoft.AspNet.WebApi.Cors NuGet Package v5.2.3'
+  ]
 }) %>
 
 **Otherwise, please follow the steps below to configure your existing ASP.NET Web API app to use it with Auth0.**
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-
-* MicroSoft Visual Studio 2015
-* WebApi.JsonWebToken NuGet Package v0.2.0
-* Auth0-ASPNET NuGet Package v1.4.0
-* Microsoft.AspNet.WebApi.Cors NuGet Package v5.2.3
-:::
-
-
 
 ### 1. Install the WebApi.JsonWebToken &amp; Auth0-ASPNET packages
 
@@ -37,7 +30,7 @@ Open the **WebApiConfig.cs** file located in the **App_Start** folder and add th
 using YOUR_WEBAPI_PROJECT_NAME.App_Start;
 using System.Web.Configuration;
 ```
-Remember to replace the placeholder for your project name in the first `using` statement.
+Remember to replace the placeholder with your project name in the first `using` statement.
 
 Add the following code snippet inside the `Register` method.
 
@@ -52,11 +45,11 @@ ${snippet(meta.snippets.setup)}
 
 Set the respective values.
 
-### 4. Securing your API
-All you need to do now is add the `[System.Web.Http.Authorize]` attribute to the controllers/actions for which you want to verify that users are authenticated.
+### 4. Secure your API
+All you need to do now is add the `[System.Web.Http.Authorize]` attribute to the controllers/actions for which you want to verify if users are authenticated.
 
 ### 5. Call Your API
-You can now make requests against your secure API by providing the Authorization header in your requests with a valid JWT id_token.
+You can now make requests against your secure API by providing the Authorization header in your requests with a valid `id_token` ([See our id_token documentation](/tokens/id_token) for more information on how to obtain an `id_token`).
 
 ```har
 {
@@ -70,10 +63,10 @@ You can now make requests against your secure API by providing the Authorization
 
 ### 6. You're done!
 
-Now you have both your FrontEnd and Backend configured to use Auth0. Congrats, you're awesome!
-
+Now you have both your frontend and backend configured to use Auth0. Congrats, you're awesome!
 
 ### Optional Steps
+
 #### Configuring CORS
 
 One of the requirements is package Microsoft.AspNet.WebApi.Cors. You can use the following command from VS2013 Package Manager Console:

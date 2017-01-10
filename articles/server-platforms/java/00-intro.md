@@ -1,10 +1,17 @@
 ---
 title: Introduction
 description: This tutorial demonstrates how to use the Auth0 Java SDK to add authentication and authorization to your web app
+budicon: 715
 ---
 
 
 This multi-step quickstart will guide you through the process of managing authentication in your Java Servlet Web Application with Auth0.
+
+::: panel-info System Requirements
+These tutorials and seed projects have been tested with the following:
+- Java 7 or above
+- Maven 3.0.x or above
+:::
 
 Auth0 provides and manages a [Servlet SDK](https://github.com/auth0/auth0-servlet). This SDK allows you to use Auth0 with Java for server-side MVC web apps. It presents a simple servlet based solution without introducing specific frameworks or libraries such as Spring.
 
@@ -13,20 +20,18 @@ __NOTE:__ You can find a listing of all our Java offerings and several sample pr
 
 ## Sample Projects
 
-<%= include('_includes/_prerequisite') %>
+There are two options to follow this quickstart. You can either download the [seed project](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) or the samples provided at each page of this quickstart.
 
-There are two options to following along this quickstart. You can either download the [seed project](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) or the samples provided at each page of this quickstart.
+The seed is a regular java app, with all the Auth0 dependencies set, but nothing more. It's an empty canvas meant to be filled as you follow the steps of this quickstart. If you prefer this option download the seed from our [GitHub repository](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) and follow along.
 
-The seed is a regular java app, with all the Auth0 dependencies set, but nothing more. It's an empty canvas meant to be filled as you follow along the steps of this quickstart. If you prefer this option download the seed from our [GitHub repository](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) and follow along.
-
-Instead you can choose to follow the samples that are included in each step. Each sample uses the [seed project](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) as a starting point and applies to it the configuration of each step, so for example the Login sample would be the [seed project](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) plus the configuration required to implement login functionality. If you choose to follow this approach continue reading, the rest of this document will guide you through setting up the required prerequisites.
+Instead, you can choose to follow the samples that are included in each step. Each sample uses the [seed project](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) as a starting point and applies to it the configuration of each step. So, for example, the Login sample would be the [seed project](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) plus the configuration required to implement login functionality. If you choose to follow this approach continue reading, the rest of this document will guide you through setting up the required prerequisites.
 
 ### Seed Project Structure
 
 Let's take some time and explain how our [seed project](https://github.com/auth0-samples/auth0-servlet-sample/tree/master/00-Starter-Seed) is structured.
 
 
-```
+```text
 - src
 -- main
 ---- java

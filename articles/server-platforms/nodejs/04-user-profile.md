@@ -1,12 +1,17 @@
 ---
 title: User Profile
 description: This tutorial demonstrates how to fetch user profile information
+budicon: 292
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-nodejs-webapp-sample',
-  path: '04-User-Profile'
+  path: '04-User-Profile',
+  requirements: [
+    'NodeJS 4.3 or superior',
+    'Express 4.11'
+  ]
 }) %>
 
 ## User Profile
@@ -30,7 +35,7 @@ block content
   pre #{userProfile}
 ```
 
-To have full access to the user profile on  `userProfile`, we need to strigify the `user` object. Modify the `/` endpoint in `views/user.js` to include `userProfile`.
+To have full access to the user profile on  `userProfile`, we need to stringify the `user` object. Modify the `/` endpoint in `views/user.js` to include `userProfile`.
 
 ```js
 // views/user.js

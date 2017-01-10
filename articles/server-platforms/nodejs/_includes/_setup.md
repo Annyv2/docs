@@ -1,6 +1,4 @@
-## Configure Callback URLs
-
-<%= include('../_includes/_callback-url-introduction') %>
+<%= include('../../../_includes/_callback_url') %>
 
 ## Structure
 
@@ -36,7 +34,7 @@ npm install
 Auth0's Lock widget and `auth0.js` library are used throughout these quickstarts. These scripts can be obtained from the following CDN links:
 
 **Lock**
-`https://cdn.auth0.com/js/lock/10.3/lock.min.js`
+`<script src="${lock_url}"></script>`
 
 **auth0.js**
-`http://cdn.auth0.com/w2/auth0-7.2.js`
+`<script src="${auth0js_url}"></script>`

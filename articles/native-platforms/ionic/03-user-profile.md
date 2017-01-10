@@ -1,18 +1,17 @@
 ---
 title: User Profile
 description: This example demonstrates how to display the user's profile
+budicon: 292
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-ionic-samples',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-ionic-samples',
-  pkgBranch: 'master',
-  pkgPath: '03-User-Profile',
-  pkgFilePath: '03-User-Profile/www/auth0.variables.js',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-ionic-samples',
+  path: '03-User-Profile',
+  requirements: [
+    'Ionic 1.3.1'
+  ]
 }) %>
-
 
 
 You can obtain a user's profile from the `getProfile()` method.
@@ -25,20 +24,14 @@ At any given time, you can call `getProfile` on `lock` passing in a token and ca
 // www/components/auth/auth.service.js
 
 (function() {
-
-    ...
-  
+  ...
   function authService($rootScope, lock, authManager, jwtHelper) {
-
     ...
-
     // Set up the logic for when a user authenticates
     // This method is called from app.run.js
     function registerAuthenticationListener() {
       lock.on('authenticated', function(authResult) {
-    
-    ...
-    
+        ...
         lock.getProfile(authResult.idToken, function(error, profile) {
           if (error) {
             console.log(error);
@@ -47,15 +40,10 @@ At any given time, you can call `getProfile` on `lock` passing in a token and ca
           localStorage.setItem('profile', JSON.stringify(profile));
 
         });
-    
-    ...
-    
+        ...
       });
     }
-
     ...
-
-  
   }
 })();
 
@@ -112,9 +100,7 @@ The user's profile is retrieved using the `getProfileDeferred()` method which is
 // www/components/auth/auth.service.js
 
 (function() {
-
   ...
-
   function authService($rootScope, lock, authManager, jwtHelper, $q) {
 
     var userProfile = JSON.parse(localStorage.getItem('profile')) || null;
@@ -164,9 +150,7 @@ The user's profile is retrieved using the `getProfileDeferred()` method which is
     function getProfileDeferred() {
       return deferredProfile.promise;
     }
-
     ...
-
     return {
       userProfile: userProfile,
       login: login,

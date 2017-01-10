@@ -1,9 +1,10 @@
 ---
 title: Calling APIs
 description: This tutorial demonstrates how to make authenticated API calls
+budicon: 546
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-javascript-spa',
   path: '08-Calling-Api'
@@ -18,12 +19,8 @@ To make an authenticated request, add the user's JWT as an `Authorization` heade
 ```js
 // app.js
 
-...
-
 var authenticate_request = function(xhr) {
   var id_token = localStorage.getItem('id_token');
   xhr.setRequestHeader('Authorization', 'Bearer ' + id_token);
 };
-
-...
 ```

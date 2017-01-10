@@ -2,25 +2,18 @@
 title: Login
 default: true
 description: This tutorial will show you how to use the Auth0 NancyFX SDK to add authentication and authorization to your web app.
+budicon: 448
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-nancyfx-samples',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-nancyfx-samples',
-  pkgBranch: 'master',
-  pkgPath: '00-Starter-Seed',
-  pkgFilePath: '00-Starter-Seed/App.config',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-nancyfx-samples',
+  path: '00-Starter-Seed',
+  requirements: [
+    'Microsoft Visual Studio 2015',
+    '.NET Framework 4.5.2'
+  ]
 }) %>
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-* Microsoft Visual Studio 2015
-* .NET Framework 4.5.2
-:::
-
-
 
 ## Install the Dependencies
 
@@ -30,15 +23,15 @@ ${snippet(meta.snippets.dependencies)}
 
 ## Configure Auth0
 
-In your Nancy self hosted application add the following to your BootStrapper:
+In your Nancy self-hosted application add the following to your BootStrapper:
 
 ${snippet(meta.snippets.setup)}
 
-The `RedirectOnLoginFailed` specifies the view that should be shown to an authenticated user when he tries to access a restricted view.
+The `RedirectOnLoginFailed` specifies the view that should be shown to an authenticated user when they try to access a restricted view.
 
 The `CookieName` allows you to set the name of the cookie that will be used to save the User information.
 
-The `UserIdentifier` lets you set an identifier for the user. This are the fields that are available to use right now:
+The `UserIdentifier` lets you set an identifier for the user. Currently, here are the fields that are available:
 
   * `userid`
   * `email`
@@ -78,7 +71,7 @@ public class SecurePage : NancyModule
 
 ## Add Auth0 Callback Handler
 
-We need to add the handler for the Auth0 callback so that we can authenticate the user and get his information. We also need to add an endpoint to let users Login and Logout
+We need to add the handler for the Auth0 callback so that we can authenticate the user and get their information. We also need to add an endpoint to let users Login and Logout.
 
 ```cs
 public class Authentication : NancyModule

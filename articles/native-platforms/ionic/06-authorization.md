@@ -1,21 +1,19 @@
 ---
 title: Authorization
 description: This tutorial demonstrates how to assign roles to your users and use those claims to authorize or deny a user to access secure content in the app
+budicon: 500
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-ionic-samples',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-ionic-samples',
-  pkgBranch: 'master',
-  pkgPath: '06-Authorization',
-  pkgFilePath: '06-Authorization/www/auth0.variables.js',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-ionic-samples',
+  path: '06-Authorization',
+  requirements: [
+    'Ionic 1.3.1'
+  ]
 }) %>
 
-
-
-<%= include('../_includes/_authorization-introduction', { ruleslink: '/docs/quickstart/native/ionic/05-rules' }) %>
+<%= include('../_includes/_authorization-introduction', { ruleslink: '/quickstart/native/ionic/05-rules' }) %>
 
 ## Create a Rule to Assign Roles
 
@@ -27,7 +25,7 @@ To restrict secure content to users with a role of `admin`, start by providing a
 
 ```js
 // www/components/home/home.controller.js
- 
+
 // Restrict access to secure content
 function showAdminContent() {
 
@@ -160,13 +158,9 @@ The `showAdminContent` method checks if the user is an admin using a new `isAdmi
 ```js
 // www/components/auth/auth.service.js
 (function() {
-
   ...
-
   function authService($rootScope, lock, authManager, jwtHelper, $q) {
-
     ...
-
     function isAdmin() {
       return userProfile && userProfile.app_metadata
         && userProfile.app_metadata.roles
@@ -174,11 +168,8 @@ The `showAdminContent` method checks if the user is an admin using a new `isAdmi
     }
 
     return {
-      
-    ...
-
+      ...
       isAdmin: isAdmin
-
     }
   }
 })();

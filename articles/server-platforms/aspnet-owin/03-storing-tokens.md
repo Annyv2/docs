@@ -1,9 +1,10 @@
 ---
 title: Storing Tokens
 description: This tutorial demonstrates how store the tokens returned from Auth0 in order to use them later on.
+budicon: 280
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-aspnet-owin-mvc-sample',
   path: '03-Storing-Tokens'

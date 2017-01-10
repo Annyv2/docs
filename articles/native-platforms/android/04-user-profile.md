@@ -1,20 +1,21 @@
 ---
 title: User Profile
 description: This tutorial will show you how to use Lock to get the user's profile data.
+budicon: 292
 ---
 
 This tutorial will show you how to use Lock to get the user's profile data in your Android apps with Auth0.
 
- <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-android-sample/tree/master/04-User-Profile',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-android-sample',
-  pkgBranch: 'master',
-  pkgPath: '04-User-Profile',
-  pkgFilePath: '04-User-Profile/app/src/main/res/values/strings.xml',
-  pkgType: 'replace'
+<%= include('../../_includes/_package', {
+  org: 'auth0-samples',
+  repo: 'auth0-android-sample',
+  path: '04-User-Profile',
+  requirements: [
+    'Android Studio 2.2',
+    'Android SDK 24',
+    'Emulator - Nexus 5X - Android 6.0'
+  ]
 }) %>
-
 
 ## Before Starting
 
@@ -34,7 +35,7 @@ new Auth0(${account.clientId}, ${account.namespace}));
 
 Then, use your previously stored credentials (in this example, stored in the Application Singleton) to request the data.
 
-```java        
+```java
 client.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
   @Override
@@ -45,7 +46,7 @@ client.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
   public void onFailure(AuthenticationException error){
   }
 });
-```                
+```
 
 ## Access The Data Inside The UserProfile
 

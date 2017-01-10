@@ -1,19 +1,14 @@
 ---
 title: Login with Embedded Lock
 description: This tutorial will show you can host the Lock widget inside your application instead of using the Lock widget which is hosted on the Auth0 domain.
+budicon: 448
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-aspnetcore-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-aspnetcore-sample',
-  pkgBranch: 'master',
-  pkgPath: '02-Login-Embedded-Lock',
-  pkgFilePath: '02-Login-Embedded-Lock/SampleMvcApp/appsettings.json',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-aspnetcore-sample',
+  path: '02-Login-Embedded-Lock'
 }) %>
-
-
 
 ## Background
 
@@ -87,7 +82,7 @@ First be sure to change the signature of your `Configure` method to accept a par
 
 Next register the Cookie middleware by making a call to the `UseCookieAuthentication` method. Then register the OIDC middleware by making a call to the `UseOpenIdConnectAuthentication` method, passing along the value of the `oidcOptions` parameter which was injected by the DI framework.
 
-Both these middleware should be registered before your MVC middleware in order for your controllers to be protected:
+Both these middleware should be registered before your MVC middleware in order for your controllers to be protected. The OIDC middleware is required in order to authenticate the user with Auth0. Once the user has authenticated they will be signed in to the Cookie middleware which will be used to authenticate all subsequent requests.
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<OpenIdConnectOptions> oidcOptions)
@@ -185,29 +180,29 @@ For the Login screen you can create a Razor view and embed the code for Lock. Yo
 @model LockContext
 
 <div id="root" style="width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px;">
-    embeded area
+	embeded area
 </div>
-<script src="https://cdn.auth0.com/js/lock-9.1.min.js"></script>
+<script src="${lock_url}"></script>
 <script>
 
-  var lock = new Auth0Lock('@Model.ClientId', '@Model.Domain');
-
-  lock.show({
-      container: 'root'
-    , callbackURL: '@Model.CallbackUrl'
-    , responseType: 'code'
-    , authParams: {
-      scope: 'openid profile',
-      state: '@Model.State' ,
-     nonce: '@Model.Nonce'
+  var lock = new Auth0Lock('@Model.ClientId', '@Model.Domain', {
+    container: 'root',
+    auth: {
+      redirectUrl: '@Model.CallbackUrl',
+      responseType: 'code',
+      params: {
+        scope: 'openid',
+        state: '@Model.State' ,
+        nonce: '@Model.Nonce'
+      }
     }
   });
+
+  lock.show();
 </script>
 ```
 
 Be sure to set the Client ID, Domain and Callback URL values from the ones supplied by the `LockContext` model. Also be sure to set the correct `state` and `nonce` parameters as shown above, as this is the key to getting everyting to work together.
-
-Also note that the `scope` parameter has been changed to add the `profile` scope. The reason for this is that you want the user's `name` returned so you can set the correct `ClaimTypes.Name` claim. This is discussed in more detail in the [User Profile step](/quickstart/webapp/aspnet-core/05-user-profile)
 
 ## Add Login and Logout links
 

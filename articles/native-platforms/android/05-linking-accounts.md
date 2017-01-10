@@ -1,20 +1,21 @@
 ---
 title: Linking Accounts
 description: This tutorial will show you how to use Lock within your Android project to link two different accounts for the same user.
+budicon: 345
 ---
 
 This tutorial will show you how to use Lock within your Android project to link two different accounts for the same user.
 
- <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-android-sample/tree/master/05-Linking-Accounts',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-android-sample',
-  pkgBranch: 'master',
-  pkgPath: '05-Linking-Accounts',
-  pkgFilePath: '05-Linking-Accounts/app/src/main/res/values/strings.xml',
-  pkgType: 'replace'
+<%= include('../../_includes/_package', {
+  org: 'auth0-samples',
+  repo: 'auth0-android-sample',
+  path: '05-Linking-Accounts',
+  requirements: [
+    'Android Studio 2.2',
+    'Android SDK 24',
+    'Emulator - Nexus 5X - Android 6.0'
+  ]
 }) %>
-
 
 ## Before Starting
 
@@ -69,7 +70,7 @@ Now we can link the accounts. You have a main user along with another account yo
 UsersAPIClient client = new UsersAPIClient(auth0, credentials.getIdToken());
   String primaryUserId = mUserProfile.getId();
   client.link(primaryUserId, secondaryCredentials.getIdToken());
-```   
+```
 
 ## Retrieve Linked Accounts
 

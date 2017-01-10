@@ -1,5 +1,6 @@
 ---
 url: /rules
+toc: true
 description: Rules are functions written in JavaScript that are executed in Auth0 as part of the transaction every time a user authenticates to your application. Rules allow you to easily customize and extend Auth0's capabilities. Rules can be chained together for modular coding and can be turned on and off individually.
 ---
 
@@ -97,6 +98,10 @@ The `context` object will be:
 {
   "clientID": "...client_id_of_the_app...",
   "clientName": "my app",
+  "clientMetadata": {
+    "myKey1": "myValue2",
+    "myKey2": "myValue2"
+  }
   "connection": "google-oauth2"
 }
 ```
@@ -131,7 +136,7 @@ function (user, context, callback) {
 }
 ```
 
-This will cause a redirect to your callback url with an `error` querystring parameter containing the message you set. (e.g.: `https://yourapp.com/callback?error=unauthorized&error_description=Only%20admins%20can%20use%20this`)
+This will cause a redirect to your callback url with an `error` querystring parameter containing the message you set. (e.g.: `https://yourapp.com/callback?error=unauthorized&error_description=Only%20admins%20can%20use%20this`). Make sure to call the callback with an instance of `UnauthorizedError` (not `Error`).
 
 > Error reporting to the app depends on the protocol. OpenID Connect apps will receive the error in the querystring. SAML apps will receive the error in a `SAMLResponse`.
 

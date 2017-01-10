@@ -1,12 +1,16 @@
 ---
 title: Customizing Lock
 description: This tutorial demonstrates how to customize Lock.
+budicon: 285
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-jquery-samples',
-  path: '10-Customizing-Lock'
+  path: '10-Customizing-Lock',
+  requirements: [
+    'jQuery 3.1.0'
+  ]
 }) %>
 
 Using Lock is easy, but you may want to customize your login UI. For that, there are several [customization options](/libraries/lock/v10/customization) available.

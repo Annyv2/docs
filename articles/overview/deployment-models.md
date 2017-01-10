@@ -46,6 +46,13 @@ The following table describes operational and feature differences between each o
             <td>Scheduled with Customer. <br /><br />Minimum 1/month, except critical updates (e.g. vulnerabilities, security updates)</td>
         </tr>
         <tr>
+            <th>Deployment Configurations</th>
+            <td>N/A</td>
+            <td>High Availability;<br />Geo High Availability;<br />High Capacity</td>
+            <td>Single Node;<br />High Availability;<br />Geo High Availability;<br />High Capacity</td>
+            <td>Single Node;<br />High Availability;<br />Geo High Availability;<br />High Capacity</td>
+        </tr>
+        <tr>
             <th>Service & Uptime Reporting</th>
             <td>http://status.auth0.com<br />http://uptime.auth0.com</td>
             <td>Dedicated uptime URL</td>
@@ -111,9 +118,9 @@ The following table describes operational and feature differences between each o
         <tr>
             <th>Extensions</th>
             <td class="success">Yes</td>
-            <td class="danger">No</td>
-            <td class="danger">No</td>
-            <td class="danger">No</td>
+            <td class="success">Yes <sup>*</sup></td>
+            <td class="success">Yes <sup>*</sup></td>
+            <td class="success">Yes <sup>*</sup></td>
         </tr>
         <tr>
             <th>Geolocation</th>
@@ -138,10 +145,12 @@ The following table describes operational and feature differences between each o
         </tr>
         <tr>
             <th>Shared Resources Among Multiple Customers</th>
-            <td class>Yes</td>
-            <td class>No</td>
-            <td class>No</td>
-            <td class>No</td>
+            <td class="success">Yes</td>
+            <td class="danger">No</td>
+            <td class="danger">No</td>
+            <td class="danger">No</td>
         </tr>
     </tbody>
 </table>
+
+<sup>*</sup>__NOTE:__ See the [Auth0 Appliance: Extensions page](/appliance/extensions) to learn more about configuring extensions with the Appliance.

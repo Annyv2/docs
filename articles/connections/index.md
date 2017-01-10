@@ -36,13 +36,22 @@ Auth0 is an identity hub that supports many authentication providers using vario
 
 Auth0 supports the following social providers out of the box. You can also use any [OAuth2 Authorization Server](/connections/social/oauth2).
 
-<% var socialConnections = _.sortBy(articles.findByHash('connections/social').items, 'index'); %>
+<% var socialConnections = cache.find('articles/connections/social', {sort: 'index'}); %>
 <%= include('./_connections', { connections: socialConnections }) %>
 
 ## Enterprise
 
-<% var enterpriseConnections = _.sortBy(articles.findByHash('connections/enterprise').items, 'index'); %>
+<% var enterpriseConnections = cache.find('articles/connections/enterprise', {sort: 'index'}); %>
 <%= include('./_connections', { connections: enterpriseConnections }) %>
+
+## Legal identities
+
+Through our partner Grean we offer a growing range of government and bank identities tied to
+legal persons. 
+<% var greanConnections = cache.find('articles/connections/grean', {sort: 'index'}); %>
+<%= include('./_connections', { connections: greanConnections }) %>
+
+If the one you need isn't found here we suggest getting in touch with [Grean](https://grean.com).
 
 ## Database and Custom Connections
 
@@ -57,13 +66,13 @@ Full documentation on Passwordless authentication can be found at the links belo
 
 <ul>
 <li><a href="/connections/passwordless">Passwordless Authentication Overview</a></li>
-<% _.forEach(_.sortBy(articles.findByHash('connections/passwordless').items, 'connection'), function(article) { %>
+<% cache.find('articles/connections/passwordless', {sort: 'connection'}).forEach(article => { %>
   <% if (article.connection) { %>
     <li>
       <% if (article.public === false) { %>
         <%- article.connection %>
       <% } else { %>
-        <a href="<%- '/docs' + article.url %>"><%- article.connection %></a>
+        <a href="<%- article.url %>"><%- article.connection %></a>
       <% } %>
     </li>
   <% } %>
@@ -75,7 +84,7 @@ Full documentation on Passwordless authentication can be found at the links belo
 
 Auth0 sits between your app and the identity provider that authenticates your users. Through this level of abstraction, Auth0 keeps your app isolated from any changes to and idiosyncrasies of each provider's implementation. In addition, Auth0's [normalized user profile](/user-profile) simplifies user management.
 
-**Note:** The relationship between Auth0 and any of these authentication providers is referred to a 'connection'.
+**Note:** The relationship between Auth0 and any of these authentication providers is referred to as a 'connection'.
 
 Auth0 is a multi-tenant service. When you register with Auth0, you get your own namespace (${account.namespace}). Many of these identity providers require registration and you will need to provide a `return url`. This will always be:
 

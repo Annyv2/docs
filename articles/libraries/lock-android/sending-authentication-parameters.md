@@ -1,9 +1,9 @@
 ---
-toc_title: Sending Authentication Parameters
+section: libraries
 description: Sending Authentication parameters with Lock Android
 ---
 
-::: panel-info Version Warning
+::: panel-warning Version Warning
 This document is not yet updated to use [Lock for Android](https://github.com/auth0/Lock.Android) 2.0. It will be soon!
 :::
 
@@ -42,6 +42,7 @@ Map<String, Object> parameters = builder
 ```
 
 ## Supported parameters
+
 ### scope:`String`
 
 There are different values supported for scope:

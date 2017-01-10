@@ -2,18 +2,20 @@
 title: Authorization
 description: This tutorial will show you how to use the Auth0 authentication API in your Android project to create a custom login screen.
 seo_alias: android
+budicon: 500
 ---
 
 This step demonstrates how to use Auth0 to create access roles for your users. With access roles, you can authorize or deny content to different users based on the level of access they have.
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-android-sample/tree/master/07-Authorization',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-android-sample',
-  pkgBranch: 'master',
-  pkgPath: '07-Authorization',
-  pkgFilePath: '07-Authorization/app/src/main/res/values/strings.xml',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-android-sample',
+  path: '07-Authorization',
+  requirements: [
+    'Android Studio 2.2',
+    'Android SDK 24',
+    'Emulator - Nexus 5X - Android 6.0'
+  ]
 }) %>
 
 ## Before Starting
@@ -29,7 +31,7 @@ if (user.email.indexOf('@example.com') > -1)
 ```
 to match the condition that fits your needs.
 
-By default, it says that if the user email contains `@example.com` he will be given an `admin` role, otherwise a regular `user` role.
+By default, it says that if the user email contains `@example.com` then they will be given an `admin` role, otherwise a regular `user` role.
 
 > You can define more roles other than `admin` and `user`, depending on your product requirements.
 

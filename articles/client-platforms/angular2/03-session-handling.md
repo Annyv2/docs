@@ -1,19 +1,19 @@
 ---
 title: Session Handling
 description: This tutorial will show you how to integrate Auth0 with angular2 to add session handling and logout to your web app.
+budicon: 280
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-angularjs2-systemjs-sample',
-  pkgBranch: 'master',
-  pkgPath: '03-Session-Handling',
-  pkgFilePath: '03-Session-Handling/app/auth.config.ts',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-angularjs2-systemjs-sample',
+  path: '03-Session-Handling',
+  requirements: [
+    'Angular 2.0.1'
+  ]
 }) %>
 
-In the previous steps of this tutorial, we enabled user login with the `Lock` widget and then with `auth0.js`. 
+In the previous steps of this tutorial, we enabled user login with the `Lock` widget and then with `auth0.js`.
 
 In this step, we will create a session for the user and also allow them to log out.
 
@@ -26,8 +26,6 @@ Once the user is authenticated, we need to create a client-side session for them
 ```typescript
 // auth.service.ts
 
-...
-
 @Injectable()
 export class Auth {
   // Configure Auth0
@@ -39,8 +37,7 @@ export class Auth {
       localStorage.setItem('id_token', authResult.idToken);
     });
   }
-
-  ...
+  // ...
 }
 ```
 
@@ -53,8 +50,7 @@ To check if a user is authenticated, we can use `tokenNotExpired` from [angular2
 
 import { tokenNotExpired } from 'angular2-jwt';
 
-...
-
+// ...
 public authenticated() {
   // Check if there's an unexpired JWT
   // It searches for an item in localStorage with key == 'id_token' by default
@@ -75,7 +71,7 @@ To use this service, inject `Auth` into your component:
 
 export class AppComponent {
   constructor(private auth: Auth) {}
-};
+}
 ```
 
 and then use it in your component's template:
@@ -96,13 +92,9 @@ Since authentication with JWT is stateless, the only thing necessary for logging
 ```typescript
 // auth.service.ts
 
-...
-
+// ...
 public logout() {
   // Remove token from localStorage
   localStorage.removeItem('id_token');
 }
-
-...
 ```
-

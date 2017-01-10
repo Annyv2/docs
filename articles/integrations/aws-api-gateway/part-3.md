@@ -13,11 +13,9 @@ In this step, you will build a single page, serverless client application using 
 For a simple starter app, download this seed project.
 
 <%= include('../../_includes/_package', {
-  pkgRepo: 'auth0-aws',
-  pkgBranch: 'master',
-  pkgPath: 'examples/api-gateway/client',
-  pkgFilePath: null,
-  pkgType: 'js'
+  org: 'auth0',
+  repo: 'auth0-aws',
+  path: 'examples/api-gateway/client'
 }) %>
 
 Copy the contents of this seed project to a local folder called `pets`, which you will be using for the remainder of this tutorial. Within this folder, update `auth0-variables.js` with your Auth0 Client `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_ID` (this information is available in the [Management Dashboard](${manage_url}/#/clients) for the client in question).
@@ -100,7 +98,7 @@ function (user, context, callback) {
 
 Be sure to update the `role` and `[principal]` ARN values with the ones for your integration.
 
-Copy the updated files to your S3 bucket for your web site.
+Copy the updated files to your S3 bucket for your website.
 
 Optionally, you can set a breakpoint in the browser at `store.set('awstoken', delegation.Credentials);`. When you log out and and log back in, inspect `delegation.Credentials` when you arrive at the breakpoint. You will see a familiar values like *AccessKeyId* and *SecretAccessKey*:
 
@@ -236,6 +234,6 @@ The `getSecureApiClient` function provided for you retrieves the AWS token from 
 ```
 
 <%= include('./_stepnav', {
- prev: ["2. Securing and Deploying", "/docs/integrations/aws-api-gateway/part-2"],
- next: ["4. Using Multiple Roles", "/docs/integrations/aws-api-gateway/part-4"]
+ prev: ["2. Securing and Deploying", "/integrations/aws-api-gateway/part-2"],
+ next: ["4. Using Multiple Roles", "/integrations/aws-api-gateway/part-4"]
 }) %>

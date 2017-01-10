@@ -17,11 +17,9 @@ title: Using Passwordless Authentication in a Regular Web App with SMS
 ### Use Auth0 UI widget (Lock)
 
 <%= include('../../_includes/_package', {
-  pkgRepo: 'auth0-node-passwordless-sample',
-  pkgBranch: 'master',
-  pkgPath: null,
-  pkgFilePath: null,
-  pkgType: 'server'
+  org: 'auth0-samples',
+  repo: 'auth0-node-passwordless-sample',
+  path: ''
 }) %>
 
 <%= include('./_init-passwordless-lock') %>
@@ -47,7 +45,7 @@ This will open a dialog that asks the user for their phone number.
 
 Then Auth0 will use Twilio to send an SMS to the user containing the one-time code:
 
-![](/media/articles/connections/passwordless/passwordless-sms-receive-code-web.png)
+<div class="phone-mockup"><img src="/media/articles/connections/passwordless/passwordless-sms-receive-code-web.png" alt="SMS one-time code"/></div>
 
 Lock will ask for the code that has been sent to the provided number via SMS. The code can then be used as a one-time password to log in:
 
@@ -60,11 +58,9 @@ Once the user enters the code received via SMS, Lock will authenticate the user 
 ### Use your own UI
 
 <%= include('../../_includes/_package', {
-  pkgRepo: 'auth0-node-passwordless-sample',
-  pkgBranch: 'master',
-  pkgPath: null,
-  pkgFilePath: null,
-  pkgType: 'server'
+  org: 'auth0-samples',
+  repo: 'auth0-node-passwordless-sample',
+  path: ''
 }) %>
 
 You can perform passwordless authentication in your regular web app with your own custom UI using the [Auth0 JavaScript client library](/libraries/auth0js).

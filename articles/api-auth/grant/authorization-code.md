@@ -1,13 +1,16 @@
 ---
-description: Describes the Authentication API Code Grant.
+description: Describes how to call APIs from regular web apps using the  Authentication Code Grant.
 ---
 
-# API Auth: Authorization Code Grant
-<%=include('../_preview-warning') %>
+# Calling APIs from Server-side Web Apps
 
-The Authorization Code Grant (defined in [RFC 6749, section 4.1](https://tools.ietf.org/html/rfc6749#section-4.1)) is a redirect-based flow where the User Agent receives an `authorization_code` from the Authorization Server and transfers this to the Client. The Client will then interact with the Authorization Server and exchange the `authorization_code` for an `access_token` (and optionally also a `refresh_token`). The Client can now use this `access_token` to call the Resource Server on behalf of the Resource Owner.
+The OAuth 2.0 grant that regular web apps utilize in order to access an API, is the **Authorization Code Grant**.
 
-![](/media/articles/api-auth/authorization-code-grant.png)
+## Overview
+
+The **Authorization Code Grant** (defined in [RFC 6749, section 4.1](https://tools.ietf.org/html/rfc6749#section-4.1)) is a redirect-based flow where the User Agent receives an `authorization_code` from the Authorization Server and transfers this to the Client. The Client will then interact with the Authorization Server and exchange the `authorization_code` for an `access_token` (and optionally also a `refresh_token`). The Client can now use this `access_token` to call the Resource Server on behalf of the Resource Owner.
+
+![Authorization Code Grant](/media/articles/api-auth/authorization-code-grant.png)
 
  1. The Client initiates the flow and redirects the user to the Authorization Server
  2. The user authenticates
@@ -25,4 +28,5 @@ The first time the user goes through this flow a consent page will be shown wher
 
  ## Tutorials
 
+  - [Configuring your tenant for API Authorization](/api-auth/tutorials/configuring-tenant-for-api-auth)
   - [Executing an Authorization Code Grant flow](/api-auth/tutorials/authorization-code-grant)

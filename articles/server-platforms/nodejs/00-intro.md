@@ -1,17 +1,12 @@
 ---
 title: Introduction
 description: This tutorial demonstrates how to setup and run the nodejs webapp sample project provided by Auth0
+budicon: 715
 ---
 
 This multistep quickstart guide will walk you through setting up and managing authentication in your Node.js web apps using Auth0. Each step demonstrates how to implement a specific feature of Auth0 and is accompanied by a downloadable sample project showing the complete solution.
 
-<%= include('_includes/_prerequisite') %>
-
-## Create an Application
-
 <%= include('../../_includes/_new_app') %>
-
-![App Dashboard](/media/articles/angularjs/app_dashboard.png)
 
 <%= include('_includes/_setup') %>
 

@@ -1,18 +1,17 @@
 ---
 title: Rules
 description: This tutorial demonstrates how to use rules to extend what Auth0 has to offer
+budicon: 173
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-ionic-samples',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-ionic-samples',
-  pkgBranch: 'master',
-  pkgPath: '05-Rules',
-  pkgFilePath: '05-Rules/www/auth0.variables.js',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-ionic-samples',
+  path: '05-Rules',
+  requirements: [
+    'Ionic 1.3.1'
+  ]
 }) %>
-
 
 
 <%= include('../_includes/_rules-introduction') %>
@@ -23,7 +22,7 @@ description: This tutorial demonstrates how to use rules to extend what Auth0 ha
 
 ## Test the Rule
 
-<%= include('../_includes/_rules-test-result-intro', { profilelink: '/docs/quickstart/native/ionic/03-user-profile' }) %>
+<%= include('../_includes/_rules-test-result-intro', { profilelink: '/quickstart/native/ionic/03-user-profile' }) %>
 
 ```html
 <!-- www/components/home/home.html -->
@@ -50,7 +49,6 @@ description: This tutorial demonstrates how to use rules to extend what Auth0 ha
     </div>
   </ion-content>
 </ion-view>
-
 ```
 
 <div class="phone-mockup">

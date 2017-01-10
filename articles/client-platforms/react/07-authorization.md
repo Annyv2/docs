@@ -1,36 +1,37 @@
 ---
 title: Authorization
 description: This tutorial will show you how assign roles to your users, and use those claims to authorize or deny a user to access certain routes in the app.
+budicon: 500
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-react-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-react-sample',
-  pkgBranch: 'master',
-  pkgPath: '07-Authorization',
-  pkgType: 'server'
+  org: 'auth0-samples',
+  repo: 'auth0-react-sample',
+  path: '07-Authorization',
+  requirements: [
+    'React 15.3'
+  ]
 }) %>
 
-<%= include('../_includes/_authorization-introduction', { ruleslink: '/docs/quickstart/spa/react/06-rules' }) %>_
+<%= include('../_includes/_authorization-introduction', { ruleslink: '/quickstart/spa/react/06-rules' }) %>_
 
-## 1. Create a Rule to Assign Roles
+## Create a Rule to Assign Roles
 
 <%= include('../_includes/_authorization-create-rule') %>_
 
-## 2. Check if a User's Role is Present
+## Check if a User's Role is Present
 
-After creating the new rule, update the `AuthService` helper class with a new `isAdmin` method. This method will be useful in other parts of your application. It returns `true` for admin users and `false` otherwise. 
+After creating the new rule, update the `AuthService` helper class with a new `isAdmin` method. This method will be useful in other parts of your application. It returns `true` for admin users and `false` otherwise.
 
 Included this snippet in the `AuthService.js` file:
 
 ```javascript
-/* ===== ./src/utils/AuthService.js ===== */
-...
+// src/utils/AuthService.js
+
 export default class AuthService extends EventEmitter {
-  ...// omitting some methods
-  isAdmin(){
-    // Checks if user have `admin` role in his profile app_metadata
+  // ...
+  isAdmin() {
+    // Checks if the user has an `admin` role in the profile app_metadata
     const profile = this.getProfile();
     const { roles } = profile.app_metadata || {};
     return !!roles && roles.indexOf('admin') > -1;
@@ -40,14 +41,15 @@ export default class AuthService extends EventEmitter {
 
 ## 3. Restrict a Route based on User's Roles
 
-To demonstrate how to restrict access to certain routes based on a user's roles, you can update the `routes.js` file as shown below. 
+To demonstrate how to restrict access to certain routes based on a user's roles, you can update the `routes.js` file as shown below.
 
-The new `/admin` route requires the current user to have an __admin__ role, and redirects to `/unauthorized` if `auth.isAdmin()` returns `false`. 
+The new `/admin` route requires the current user to have an __admin__ role, and redirects to `/unauthorized` if `auth.isAdmin()` returns `false`.
 
 Here is the complete `routes.js` code:
 
 ```javascript
-/* ===== ./src/views/Main/routes.js ===== */
+// src/views/Main/routes.js
+
 import React from 'react'
 import {Route, IndexRedirect, Link} from 'react-router'
 import AuthService from 'utils/AuthService'
@@ -58,11 +60,11 @@ import Admin from './Admin/Admin'
 import Unauthorized from './Unauthorized/Unauthorized'
 
 // initializing the AuthService instance
-const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
+const auth = new AuthService('${account.clientId}', '${account.namespace}');
 // redirecting to saved url after a successful login
 const redirectAfterLogin = (replace) => {
   const url = localStorage.getItem('redirect_after_login')
-  if (url){
+  if (url) {
     localStorage.removeItem('redirect_after_login')
     replace({ pathname: url })
   }
@@ -95,7 +97,6 @@ export const makeMainRoutes = () => {
         <Route path="unauthorized" component={Unauthorized} />
       </Route>
       <Route path="login" component={Login} />
-      <Route path="access_token=:token" component={Login} /> //to prevent router errors
     </Route>
   )
 }
@@ -103,19 +104,22 @@ export const makeMainRoutes = () => {
 export default makeMainRoutes
 ```
 
-Another feature introduced in the above code is correct redirection after a successful login. Now the current URL is stored as a `localStorage` item before the user is directed to the login page. Later, the value is retrieved in the `redirectAfterLogin` method.
+<%= include('_includes/_env-note') %>
 
-## 4. Admin and Unauthorized Views
+Another feature introduced in the above code is correct redirection after a successful login. Now the current URL is stored as a local storage item before the user is directed to the login page. Later, the value is retrieved in the `redirectAfterLogin` method.
+
+## Admin and Unauthorized Views
 
 As a final step, add View Components for the two new routes: `Admin` and `Unauthorized` as shown below:
 
 ```javascript
-/* ===== ./src/views/Main/Admin/Admin.js ===== */
+// src/views/Main/Admin/Admin.js
+
 import React from 'react'
 import {Link} from 'react-router'
 
 export class Admin extends React.Component {
-  render(){
+  render() {
     return (
       <div>
         <h2>Admin</h2>
@@ -130,12 +134,13 @@ export default Admin;
 ```
 
 ```javascript
-/* ===== ./src/views/Main/Unauthorized/Unauthorized.js ===== */
+// src/views/Main/Unauthorized/Unauthorized.js
+
 import React from 'react'
 import {Link} from 'react-router'
 
 export class Unauthorized extends React.Component {
-  render(){
+  render() {
     return (
       <div>
         <h2>Unauthorized: you are not allowed to see this content</h2>

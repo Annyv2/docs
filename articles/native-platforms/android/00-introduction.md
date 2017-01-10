@@ -1,13 +1,12 @@
 ---
 title: Introduction
 description: Short Introduction to the Auth0 Android Quickstarts.
+budicon: 715
 ---
 
 This multistep quickstart guide will walk you through managing authentication in your android apps with Auth0.
 
 ## Sample Projects
-
-<%= include('_includes/_prerequisite') %>
 
 Each tutorial in the series includes a link to its corresponding sample project. You can find all the samples [here](https://github.com/auth0-samples/auth0-android-sample).
 

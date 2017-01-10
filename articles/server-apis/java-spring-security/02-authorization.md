@@ -1,41 +1,48 @@
 ---
 title: Authorization
 description: This tutorial will show you how assign roles to your users, and use those claims to authorize or deny a user to access certain API endpoints.
+budicon: 500
 ---
 
 You can get started by either downloading the seed project or if you would like to add Auth0 to an existing application you can follow the tutorial steps.
 
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-
-* Java 1.8
-* Maven 3.3
-* Spring 4.2.4
-* Spring Security 4.0.1
-* Spring Boot 1.3.5
-:::
-
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-spring-security-api-sample/tree/master/02-Authorization',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-spring-security-api-sample',
-  pkgBranch: 'master',
-  pkgPath: '02-Authorization',
-  pkgFilePath: '02-Authorization/src/main/resources/auth0.properties',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-spring-security-api-sample',
+  path: '02-Authorization',
+  requirements: [
+    'Java 7 or above',
+    'Maven 3.0.x or above'
+  ]
 }) %>
 
-In this step we will see how we can add role based authorization to our API, using [Rules](/rules).
+In this step we will see how we can add role-based authorization to our API, using [Rules](/rules).
 
 ## 1. Create a Rule to assign roles
 
-In our example we will create a simple rule that assigns two roles (`ROLE_ADMIN` and `ROLE_USER`) to any user. Of course you can change our sample code to match your needs.
+In our example, we will create a simple rule that assigns two roles (`ROLE_ADMIN` and `ROLE_USER`) to any user. Of course, you can change our sample code to match your needs.
 
 To create a new rule, navigate to the [new rule page](${manage_url}/#/rules/new) and select the __Set Roles To A User__ template, under _Access Control_. Then, replace the sample script with the following:
 
 ${snippet(meta.snippets.newRule)}
 
 The first condition of this rule makes sure that it runs only for a specific `CLIENT_ID`. Make sure the value matches the `CLIENT_ID` of the Client you are using for this API.
+
+What this rule does is add a `roles` property at the `app_metadata`. To customize your API based on its value, first you need to retrieve this information. This can be retrieved as part of the token.
+
+When you ask for a token you need to add this new property, `roles`, as part of the `scope` parameter. For example, if your front-end is using Lock, the code should look like this:
+
+```js
+var lock = new Auth0Lock('${account.clientId}', '${account.namespace}');
+lock.showSignin({
+    authParams: {
+        scope: 'openid roles'
+    },
+    // ... other params
+});
+```
+
+For more details on the `scope` parameter refer to: [Scopes](/scopes).
 
 ## 2. Secure the endpoints
 
@@ -60,6 +67,8 @@ You can now make requests against your secure API by providing the Authorization
 ```
 
 Before making the request you should replace the port (`8000`) with the one on which your app is listening.
+
+If the roles functionality is not working properly for you, make sure that the `roles` property is included in the token. To ensure this you can log your token and use the [JWT home page](https://jwt.io/) to decode it and review its contents.
 
 ### 4. You're done!
 

@@ -60,11 +60,9 @@ Because the AWS Lambda console has access to a limited number of Node modules th
 The following seed project contains the code you'll need for your updated AWS Lambda function.
 
 <%= include('../../_includes/_package', {
-  pkgRepo: 'auth0-aws',
-  pkgBranch: 'master',
-  pkgPath: 'examples/api-gateway/lambda',
-  pkgFilePath: null,
-  pkgType: 'server'
+  org: 'auth0',
+  repo: 'auth0-aws',
+  path: 'examples/api-gateway/lambda'
 }) %>
 
 You'll see two custom JavaScript files within the seed project:
@@ -92,8 +90,7 @@ Take a look at the logic in `index.js`. You will see logic around line 60 that v
 
 ```js
  if(event.authToken) {
-     var secretBuf = new Buffer(secret, 'base64');
-     jwt.verify(event.authToken, secretBuf, function(err, decoded) {
+     jwt.verify(event.authToken, secret, function(err, decoded) {
          if(err) {
            console.log('failed jwt verify: ', err, 'auth: ', event.authToken);
            context.done('authorization failure', null);
@@ -163,5 +160,5 @@ In this tutorial, you have:
 * Used a JWT to provide further authorization context and pass identity information into the appropriate Lambda function.
 
 <%= include('./_stepnav', {
- prev: ["4. Using Multiple Roles", "/docs/integrations/aws-api-gateway/part-4"]
+ prev: ["4. Using Multiple Roles", "/integrations/aws-api-gateway/part-4"]
 }) %>

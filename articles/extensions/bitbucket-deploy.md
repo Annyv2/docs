@@ -6,8 +6,6 @@ description: The Bitbucket Deployments extension allows you to deploy Rules and 
 
 The **Bitbucket Deployments** extension allows you to deploy [Rules](/rules) and Database Connection scripts from Bitbucket to Auth0. You can configure a Bitbucket repository, keep all of your Rules and Database Connection scripts there, and have them automatically deployed to Auth0 whenever you push changes to your repository.
 
-**NOTE:** This extension is currently available only for Auth0 instances hosted on the public cloud. Extensions are not yet supported in the [Appliance](/appliance).
-
 ## Configure the Extension
 
 To install and configure this extension, click on the **Bitbucket Deployments** box in the list of provided extensions on the [Extensions](${manage_url}/#/extensions) page of the Auth0 Management Dashboard. The **Install Extension** window will open.
@@ -26,7 +24,7 @@ Once you have provided this information, click **Install**.
 
 Navigate to the [Extensions](${manage_url}/#/extensions) page and click on the **Installed Extensions** tab.
 
-![](/media/articles/extensions/bitbucket-deploy/webhook-setup.png)
+![](/media/articles/extensions/bitbucket-deploy/installed-extensions.png)
 
 Click on the row for the **Bitbucket Deployments** extension. The first time you click on your installed extension, you will be asked to grant it to access your Bitbucket account. Once you agree, you will be directed to the **Bitbucket Integration** page.
 
@@ -69,6 +67,29 @@ For a generic Custom Database Connection, only the `login.js` script is required
 
 You can find examples in [the Auth0 Samples repository](https://github.com/auth0-samples/github-source-control-integration/tree/master/database-connections/my-custom-db). While the samples were authored for GitHub, it will work for a Bitbucket integration as well.
 
+### Deploy Hosted Pages
+
+The supported hosted pages are:
+- `error_page`
+- `guardian_multifactor`
+- `login`
+- `password_reset`
+
+To deploy a page, you must create an HTML file under the `pages` directory of your Bitbucket repository. For each HTML page you need to create a JSON file (with the same name) that will be used to mark the page as enabled or disabled. For example, in order to deploy an `error_page`, you would create two files:
+
+```text
+your-bitbucket-repo/pages/error_page.html
+your-bitbucket-repo/pages/error_page.json
+```
+
+To enable the page the `error_page.json` would contain the following:
+
+```json
+{
+  "enabled": true
+}
+```
+
 ### Deploy Rules
 
 To deploy a rule, you must first create a JavaScript file under the `rules` directory of your Bitbucket repository. Each Rule must be in its own `.js` file.
@@ -76,6 +97,10 @@ To deploy a rule, you must first create a JavaScript file under the `rules` dire
 For example, if you create the file `rules/set-country.js`, the extension will create a Rule in Auth0 with the name `set-country`.
 
 **NOTE**: If you plan to use source control integration for an existing account, first rename your Rules in Auth0 to match the name of the files you will be deploying to this directory.
+
+You can mark rules as manual. In that case, the source control extension will not delete or update them. To mark a rule navigate to the **Rules Configuration** tab of the **Bitbucket Integration** page. Toggle the **Manual Rule** switch for the rules you want to mark as manual. Click **Update Manual Rules** to save your changes.
+
+![](/media/articles/extensions/bitbucket-deploy/manual-rules.png)
 
 You can control the Rule order, status (`enabled`/`disabled`) and stage (for now, only `login_success` is available) by creating a JSON file with the same name as your JavaScript file. For this example, you would create a file named `rules/set-country.json`.
 

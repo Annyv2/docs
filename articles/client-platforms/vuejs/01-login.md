@@ -1,24 +1,17 @@
 ---
 title: Login
 description: This tutorial will show you how to use the Auth0 Vue.js SDK to add authentication and authorization to your web app.
+budicon: 448
 ---
 
 <%= include('../../_includes/_package', {
-  pkgOrg: 'auth0-samples',
-  githubUrl: 'https://github.com/auth0-samples/auth0-vue-samples/tree/master/00-Starter-Seed',
-  pkgRepo: 'auth0-vue-samples',
-  pkgBranch: 'master',
-  pkgPath: '00-Starter-Seed',
-  pkgFilePath: null,
-  pkgType: 'js'
+  org: 'auth0-samples',
+  repo: 'auth0-vue-samples',
+  path: '01-Login',
+  requirements: [
+    'Vue.js 1.0.16'
+  ]
 }) %>
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-* Vue.js 1.0.16
-:::
-
-
 
 ${include('../\_callback')}
 
@@ -75,3 +68,5 @@ The `canActivate` lifecycle hook is used to determine whether the route can be n
 An HTTP interceptor can be used to define custom actions for any unauthorized requests. In many cases, an `HTTP 401` will be returned when the user's JWT is expired or otherwise invalid. When this happens, you will likely want to invalidate the user's `authenticated` state on the front end and redirect them to the home or login route.
 
 ${snippet(meta.snippets.interceptors)}
+
+<%= include('../_includes/_persisting_state') %>

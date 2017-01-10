@@ -2,26 +2,18 @@
 title: Login
 default: true
 description: This tutorial demonstrates how to use the Auth0 PHP SDK to add authentication and authorization to your web app
+budicon: 448
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-php-web-app',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-php-web-app',
-  pkgBranch: 'master',
-  pkgPath: '00-Starter-Seed/basic-webapp',
-  pkgFilePath: null,
-  pkgType: 'server'
+  org: 'auth0-samples',
+  repo: 'auth0-php-web-app',
+  path: '00-Starter-Seed/basic-webapp',
+  requirements: [
+    'Apache 2.4.4',
+    'PHP 5.6.14 and up'
+  ]
 }) %>
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-
-* Apache 2.4.4
-* PHP 5.6.14 and up
-:::
-
-
 
 ## Add the Dependencies
 
@@ -100,7 +92,7 @@ You can [click here](/user-profile) to find out all of the available properties 
 
 #### Configure session data
 
-By default, the SDK will store the user information in the PHP Session and it will discard the access token and the id token. If you like to persist them as well, you can pass `'persist_access_token' => true` and `'persist_id_token' => true` to the SDK configuration in step 2. You can also disable session all together by passing `'store' => false`.
+By default, the SDK will store the user information in the PHP Session and it will discard the access token and the id token. If you like to persist them as well, you can pass `'persist_access_token' => true` and `'persist_id_token' => true` to the SDK configuration in step 2. You can also disable session altogether by passing `'store' => false`.
 
 If you want to change PHP Session and use Laravel, Zend, Symfony or other abstraction to the session, you can create a class that implements get, set, delete and pass it to the SDK as following.
 

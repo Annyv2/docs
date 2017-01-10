@@ -1,22 +1,18 @@
 ---
 title: Session Handling
 description: This tutorial will show you how to handle sessions in your app, with the aim of preventing the user from being asked for credentials each time the app is launched.
+budicon: 280
 ---
 
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-
-* CocoaPods 1.0.0
-* XCode 7.3 (7D175)
-* Simulator - iPhone 6 - iOS 9.3 (13E230)
-  :::
-
 <%= include('../../_includes/_package', {
-  pkgRepo: 'native-mobile-samples',
-  pkgBranch: 'master',
-  pkgPath: 'iOS/basic-sample-objC',
-  pkgFilePath: 'iOS/basic-sample-objc/ObjCSample/Info.plist',
-  pkgType: 'replace'
+  org: 'auth0',
+  repo: 'native-mobile-samples',
+  path: 'iOS/basic-sample-objc',
+  requirements: [
+    'CocoaPods 1.0.0 ',
+    'Xcode 7.3 (7D175)',
+    'Simulator - iPhone 6 - iOS 9.3 (13E230)'
+  ]
 }) %>
 
 ### In the Beginning

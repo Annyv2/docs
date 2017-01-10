@@ -1,24 +1,22 @@
 ---
 title: Linking Accounts
 description: This tutorial will show you how to integrate Auth0 with Angular 2 to link accounts.
+budicon: 345
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-angularjs2-systemjs-sample',
-  pkgBranch: 'master',
-  pkgPath: '05-Linking-Accounts',
-  pkgFilePath: '05-Linking-Accounts/app/auth.config.ts',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-angularjs2-systemjs-sample',
+  path: '05-Linking-Accounts',
+  requirements: [
+    'Angular 2.0.1'
+  ]
 }) %>
 
 <%= include('../../_includes/_linking_accounts') %>
 
 ```typescript
 // app/auth.service.ts
-
-...
 
 // Lock instance to launch a login to obtain the secondary JWT
 lockLink = new Auth0Lock('${account.clientId}', '${account.namespace}', {
@@ -32,16 +30,12 @@ lockLink = new Auth0Lock('${account.clientId}', '${account.namespace}', {
     title: "Link with:"
   }
 });
-
-...
 ```
 
 Then, when setting the callback for the `authenticated` event with the `on` method, you can determine which login has executed by checking the value of the `authResult.state` attribute:
 
 ```typescript
 // app/auth.service.ts
-
-...
 
 // Add callback for lock `authenticated` event
 this.lock.on("authenticated", (authResult) => {
@@ -62,7 +56,6 @@ this.lockLink.on("authenticated", (authResult) => {
     this.doLinkAccounts(authResult.idToken);
   }
 });
-...
 ```
 
 Now that the second login is handled, you will need to actually do the linking.
@@ -72,23 +65,24 @@ To call the API, [angular2-jwt](https://github.com/auth0/angular2-jwt) provides 
 First, add the `AUTH_PROVIDERS` from angular-jwt:
 
 ```typescript
-/* ===== app/app.module.ts ===== */
+// app/app.module.ts
+
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { AppComponent } from './app.component';
 
 @NgModule({
-    declarations: [
-      AppComponent
-    ],
-    providers: [
-      ...
-      AUTH_PROVIDERS,
-      ...
-    ],
-    imports: [
-      ...
-    ],
-    bootstrap: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
+  providers: [
+    // ...
+    AUTH_PROVIDERS,
+    // ...
+  ],
+  imports: [
+    // ...
+  ],
+  bootstrap: [AppComponent]
 })
 ```
 
@@ -100,17 +94,15 @@ Then import `AuthHttp`, inject it into your component and use it to make the aut
 @Injectable()
 export class Auth {
 
-  ...
-
   constructor(private authHttp: AuthHttp, private router: Router) {
-    ...
-  };
+    // ...
+  }
 
   public doLinkAccounts(accountToLinkJWT) {
     var headers: any = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    };
+    }
 
     var data: any = JSON.stringify({
       link_with: accountToLinkJWT
@@ -144,15 +136,15 @@ public linkAccount() {
 
 ## User Profile Linked Accounts Information
 
-The user profile contains an array of identities which includes the profile information from linked providers. 
+The user profile contains an array of identities which includes the profile information from linked providers.
 
-To view a user's identities, access the [Users](${manage_url}/#/users) page on the Auth0 dashboard, select a user, and scroll down to `identities`. 
+To view a user's identities, access the [Users](${manage_url}/#/users) page on the Auth0 dashboard, select a user, and scroll down to `identities`.
 
 This example shows a user with a linked Google account:
 
 ![User identities](/media/articles/users/user-identities-linked.png)
 
-If you fetch the profile after linking accounts, this same information will be available. 
+If you fetch the profile after linking accounts, this same information will be available.
 
 You can display this information and provide an **Unlink** button:
 
@@ -207,7 +199,7 @@ public unLinkAccount(identity) {
   var headers: any = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
-  };
+  }
 
   this.authHttp
   .delete('https://' + '${account.namespace}' + '/api/v2/users/' + this.userProfile.user_id + '/identities/' + identity.provider + "/" + identity.user_id, {headers: headers})
@@ -222,5 +214,3 @@ public unLinkAccount(identity) {
     );
 }
 ```
-
-

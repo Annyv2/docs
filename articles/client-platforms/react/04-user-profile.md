@@ -1,48 +1,58 @@
 ---
 title: User Profile
 description: This tutorial demonstrates how to integrate Auth0 with ReactJS to authenticate and fetch/show profile information
+budicon: 292
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-react-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-react-sample',
-  pkgBranch: 'master',
-  pkgPath: '04-User-Profile',
-  pkgType: 'server'
+  org: 'auth0-samples',
+  repo: 'auth0-react-sample',
+  path: '04-User-Profile',
+  requirements: [
+    'React 15.3'
+  ]
 }) %>
 
-The [Login step](/quickstart/spa/react/01-login) of this tutorial explains how to use Auth0 Lock to show a login window and authenticate a user and how to protect routes by making them available only for authenticated users. 
+The [Login step](/quickstart/spa/react/01-login) of this tutorial explains how to use Auth0 Lock to show a login window and authenticate a user and how to protect routes by making them available only for authenticated users.
 
 This step demonstrates how to retrieve and show user profile information.
 
-## 1. Create the AuthService class
+## Create the AuthService Class
 
-The best way to have authentication utilities available across your application is to create a helper class. Then you can share an instance of this class by passing it to the React Component as a prop. 
+The best way to have authentication utilities available across your application is to create a helper class. Then you can share an instance of this class by passing it to the React Component as a prop.
 
 First, you will create the `AuthService` helper class to encapsulate the login functionality and save it inside the `src/utils` folder as `AuthService.js`.
 
 Inside this class, you will create an `Auth0Lock` instance that receives your Auth0 credentials and an options object. (For a list of  available options, see: [Lock: User configurable options](/libraries/lock/v10/customization)). Instead of hard-coding your credentials in this class, they are passed from the `AuthService` constructor parameters to the `Auth0Lock` instance.
 
-Then, with the `Auth0Lock` instance, you can hook a callback for the `authenticated` event. This event will be triggered after every successful login, passing the user authentication token (`idToken`) as a parameter. Then the `setToken` method stores the `idToken` value in `localStorage`.
+Then, with the `Auth0Lock` instance, you can hook a callback for the `authenticated` event. This event will be triggered after every successful login, passing the user authentication token (`idToken`) as a parameter. Then the `setToken` method stores the `idToken` value in local storage.
 
 ```javascript
-/* ===== ./src/utils/AuthService.js ===== */
+// src/utils/AuthService.js
+
 import Auth0Lock from 'auth0-lock'
+import { browserHistory } from 'react-router'
 
 export default class AuthService {
   constructor(clientId, domain) {
     // Configure Auth0
-    this.lock = new Auth0Lock(clientId, domain, {})
+    this.lock = new Auth0Lock(clientId, domain, {
+      auth: {
+        redirectUrl: 'http://localhost:3000/login',
+        responseType: 'token'
+      }
+    })
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this))
     // binds login functions to keep this context
     this.login = this.login.bind(this)
   }
 
-  _doAuthentication(authResult){
+  _doAuthentication(authResult) {
     // Saves the user token
     this.setToken(authResult.idToken)
+    // navigate to the home route
+    browserHistory.replace('/home')
   }
 
   login() {
@@ -50,46 +60,53 @@ export default class AuthService {
     this.lock.show()
   }
 
-  loggedIn(){
+  loggedIn() {
     // Checks if there is a saved token and it's still valid
     return !!this.getToken()
   }
 
-  setToken(idToken){
-    // Saves user token to localStorage
+  setToken(idToken) {
+    // Saves user token to local storage
     localStorage.setItem('id_token', idToken)
   }
 
-  getToken(){
-    // Retrieves the user token from localStorage
+  getToken() {
+    // Retrieves the user token from local storage
     return localStorage.getItem('id_token')
   }
 
-  logout(){
-    // Clear user token from localStorage
+  logout() {
+    // Clear user token from local storage
     localStorage.removeItem('id_token');
   }
 }
 ```
 
-The other helper methods shown above include: `login` (to call `lock.show()` and display the login widget), `logout` (to remove the `localStorage` data), and `loggedIn` (that checks if an `idToken` exists and returns a boolean).
+The other helper methods shown above include: `login` (to call `lock.show()` and display the login widget), `logout` (to remove the local storage data), and `loggedIn` (that checks if an `idToken` exists and returns a boolean).
 
-## 2. Request User Profile Data
+## Request User Profile Data
 
-To fetch user profile information, call the `lock.getProfile` function, specifying the token and a callback to process the response. 
+To fetch user profile information, call the `lock.getProfile` function, specifying the token and a callback to process the response.
 
-Below you can see the `getProfile` code that has been added to fetch the user profile after successful authentication and store the response in `localStorage`. Also, since the profile data request is asynchronous, `EventEmitter` has been added to allow sending notifications after a profile update.
+Below you can see the `getProfile` code that has been added to fetch the user profile after successful authentication and store the response in local storage. Also, since the profile data request is asynchronous, `EventEmitter` has been added to allow sending notifications after a profile update.
 
 ```javascript
-/* ===== ./src/utils/AuthService.js ===== */
+// src/utils/AuthService.js
+
 import { EventEmitter } from 'events'
 import Auth0Lock from 'auth0-lock'
+import { browserHistory } from 'react-router'
 
 export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
     super()
     // Configure Auth0
-    this.lock = new Auth0Lock(clientId, domain, {})
+    this.lock = new Auth0Lock(clientId, domain, {
+      auth: {
+        redirectUrl: 'http://localhost:3000/login',
+        responseType: 'token'
+      }
+    })
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this))
     // Add callback for lock `authorization_error` event
@@ -98,9 +115,11 @@ export default class AuthService extends EventEmitter {
     this.login = this.login.bind(this)
   }
 
-  _doAuthentication(authResult){
+  _doAuthentication(authResult) {
     // Saves the user token
     this.setToken(authResult.idToken)
+    // navigate to the home route
+    browserHistory.replace('/home')
     // Async loads the user profile data
     this.lock.getProfile(authResult.idToken, (error, profile) => {
       if (error) {
@@ -111,23 +130,23 @@ export default class AuthService extends EventEmitter {
     })
   }
 
-  ... // omitting some methods to keep it short
+  // ...
 
-  setProfile(profile){
-    // Saves profile data to localStorage
+  setProfile(profile) {
+    // Saves profile data to local storage
     localStorage.setItem('profile', JSON.stringify(profile))
     // Triggers profile_updated event to update the UI
     this.emit('profile_updated', profile)
   }
 
-  getProfile(){
-    // Retrieves the profile data from localStorage
+  getProfile() {
+    // Retrieves the profile data from local storage
     const profile = localStorage.getItem('profile')
     return profile ? JSON.parse(localStorage.profile) : {}
   }
 
-  logout(){
-    // Clear user token and profile data from localStorage
+  logout() {
+    // Clear user token and profile data from local storage
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
   }
@@ -139,7 +158,8 @@ export default class AuthService extends EventEmitter {
 For example, instead of displaying only a logout button, you can update the Home view component to render user profile info:
 
 ```javascript
-/* ===== ./src/views/Main/Home/Home.js ===== */
+// src/views/Main/Home/Home.js
+
 import React, { PropTypes as T } from 'react'
 import {Button} from 'react-bootstrap'
 import AuthService from 'utils/AuthService'
@@ -166,12 +186,12 @@ export class Home extends React.Component {
     })
   }
 
-  logout(){
+  logout() {
     this.props.auth.logout()
     this.context.router.push('/login');
   }
 
-  render(){
+  render() {
     const { profile } = this.state
     return (
       <div className={styles.root}>
@@ -191,7 +211,8 @@ Home is now listening for `profile_updated` events from the `AuthService` instan
 The `Profile` component is still missing. Create a new `ProfileDetails.js` file in `src/components/Profile/` with the following:
 
 ```javascript
-/* ===== ./src/components/Profile/ProfileDetails.js ===== */
+// src/components/Profile/ProfileDetails.js
+
 import React, { PropTypes as T } from 'react'
 import {Row, Col, Image} from 'react-bootstrap'
 
@@ -200,7 +221,7 @@ export class ProfileDetails extends React.Component {
     profile: T.object
   }
 
-  render(){
+  render() {
     const { profile } = this.props
     return (
       <Row>
@@ -227,19 +248,25 @@ Now, after authentication, the home page will display the user's avatar and info
 
 ## 4. Custom Sign Up Fields
 
-If you need extra fields on user sign up, you can add the `additionalSignUpFields` key to the Lock options parameter. For more information, see: [additionalSignUpFields](/libraries/lock/v10/customization#additionalsignupfields-array-). 
+If you need extra fields on user sign up, you can add the `additionalSignUpFields` key to the Lock options parameter. For more information, see: [additionalSignUpFields](/libraries/lock/v10/customization#additionalsignupfields-array-).
 
 As an example, the `AuthService` constructor can be modified to request a user's `address`:
 
 ```javascript
-/* ===== ./src/utils/AuthService.js ===== */
+// src/utils/AuthService.js
+
 import Auth0Lock from 'auth0-lock'
+import { browserHistory } from 'react-router'
 
 export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
     super()
     // Configure Auth0
     this.lock = new Auth0Lock(clientId, domain, {
+      auth: {
+        redirectUrl: 'http://localhost:3000/login',
+        responseType: 'token'
+      },
       additionalSignUpFields: [{
         name: "address",                              // required
         placeholder: "enter your address",            // required
@@ -257,7 +284,6 @@ export default class AuthService extends EventEmitter {
     // binds login functions to keep this context
     this.login = this.login.bind(this)
   }
-  ...
 }
 ```
 
@@ -266,11 +292,11 @@ Each `additionalSignUpFields` value is saved to the profile in the `user_metadat
 Now, update the `Profile` component to display the address:
 
 ```javascript
-/* ===== ./src/components/Profile/ProfileDetails.js ===== */
-...
+// src/components/Profile/ProfileDetails.js
+
 export class ProfileDetails extends React.Component {
-  ...
-  render(){
+  // ...
+  render() {
     const { profile } = this.props
     const { address } = profile.user_metadata || {} // new address field
     return (
@@ -297,22 +323,23 @@ export class ProfileDetails extends React.Component {
 
 <%= include('../_includes/_profile-metadata-explanation') %>
 
-To update the user profile, call the [Update a user](/api/management/v2#!/Users/patch_users_by_id) endpoint with the new profile values. 
+To update the user profile, call the [Update a user](/api/management/v2#!/Users/patch_users_by_id) endpoint with the new profile values.
 
 Update the `AuthService` class to add a new `updateProfile` method to make the http request with the correct request headers using the [fetch standard](https://fetch.spec.whatwg.org/).
 
 ```javascript
-/* ===== ./src/utils/AuthService.js ===== */
+// src/utils/AuthService.js
+
 export default class AuthService extends EventEmitter {
   // a small constructor change to make domain accessible in other methods
   constructor(clientId, domain) {
     super()
     this.domain = domain // setting domain parameter as an instance attribute
-    ...
+    // ...
   }
 
   // the new updateProfile
-  updateProfile(userId, data){
+  updateProfile(userId, data) {
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -327,14 +354,15 @@ export default class AuthService extends EventEmitter {
     .then(response => response.json())
     .then(newProfile => this.setProfile(newProfile)) //updating current profile
   }
-  ...
+  // ...
 }
 ```
 
 This `updateProfile` method can be used in a new `ProfileEdit` component, which includes a form to update the custom `address` field:
 
 ```javascript
-/* ===== ./src/components/Profile/ProfileEdit.js ===== */
+// src/components/Profile/ProfileEdit.js
+
 import React, { PropTypes as T } from 'react'
 import ReactDOM from 'react-dom'
 import AuthService from 'utils/AuthService'
@@ -349,7 +377,7 @@ export class ProfileEdit extends React.Component {
   }
 
   // method trigged when edit form is submitted
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault()
     const { profile, auth } = this.props
     auth.updateProfile(profile.user_id, {
@@ -359,7 +387,7 @@ export class ProfileEdit extends React.Component {
     })
   }
 
-  render(){
+  render() {
     const { profile } = this.props
     const { address } = profile.user_metadata || {}
     return (
@@ -392,11 +420,11 @@ export default ProfileEdit;
 Lastly, render the `ProfileEdit` component below the `ProfileDetails` on the Home page by updating the `Home` component render method:
 
 ```javascript
-/* ===== ./src/views/Main/Home/Home.js ===== */
-...
+// src/views/Main/Home/Home.js
+
 export class Home extends React.Component {
-  ...
-  render(){
+  
+  render() {
     const { profile } = this.state
     return (
       <div className={styles.root}>

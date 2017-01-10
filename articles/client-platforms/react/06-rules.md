@@ -1,29 +1,31 @@
 ---
 title: Rules
 description: This tutorial will show you how to use Auth0 rules to extend what Auth0 has to offer.
+budicon: 173
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-react-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-react-sample',
-  pkgBranch: 'master',
-  pkgPath: '06-Rules',
-  pkgType: 'server'
+  org: 'auth0-samples',
+  repo: 'auth0-react-sample',
+  path: '06-Rules',
+  requirements: [
+    'React 15.3'
+  ]
 }) %>
 
 <%= include('../_includes/_rules-introduction') %>
 
-## 1. Create a Rule
+## Create a Rule
 
 <%= include('../_includes/_rules-create-section') %>
 
-## 2. Test the Rule Result
+## Test the Rule Result
 
-<%= include('../_includes/_rules-test-result-intro', { profilelink: '/docs/quickstart/spa/react/04-user-profile' }) %>
+<%= include('../_includes/_rules-test-result-intro', { profilelink: '/quickstart/spa/react/04-user-profile' }) %>
 
 ```javascript
-/* ===== ./src/components/Profile/ProfileDetails.js ===== */
+// src/components/Profile/ProfileDetails.js
+
 import React, { PropTypes as T } from 'react'
 import {Row, Col, Image} from 'react-bootstrap'
 import s from './styles.module.css'
@@ -33,7 +35,7 @@ export class ProfileDetails extends React.Component {
     profile: T.object
   }
 
-  render(){
+  render() {
     const { profile } = this.props
     return (
       <Row className={s.root}>

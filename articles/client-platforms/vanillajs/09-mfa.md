@@ -1,9 +1,10 @@
 ---
 title: Multifactor Authentication
 description: This tutorial demonstrates how to add Multifactor Authentication to your web app
+budicon: 243
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-javascript-spa',
   path: '09-MFA'
@@ -17,4 +18,4 @@ description: This tutorial demonstrates how to add Multifactor Authentication to
 
 ## Login
 
-<%= include('../_includes/_mfa-login', { loginlink: '/docs/quickstart/spa/vanillajs/01-login' }) %>
+<%= include('../_includes/_mfa-login', { loginlink: '/quickstart/spa/vanillajs/01-login' }) %>

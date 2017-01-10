@@ -1,21 +1,16 @@
 ---
 title: Authorization
 description: This tutorial will show you how assign roles to your users, and use those claims to authorize or deny a user to access certain routes in the app.
+budicon: 546
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-aspnetcore-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-aspnetcore-sample',
-  pkgBranch: 'master',
-  pkgPath: '08-Authorization',
-  pkgFilePath: '08-Authorization/SampleMvcApp/appsettings.json',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-aspnetcore-sample',
+  path: '08-Authorization'
 }) %>
 
-
-
-<%= include('../_includes/_authorization-introduction', { ruleslink: '/docs/quickstart/webapp/aspnet-core/07-rules' }) %>
+<%= include('../_includes/_authorization-introduction', { ruleslink: '/quickstart/webapp/aspnet-core/07-rules' }) %>
 
 ## Restrict an Action Based on a User's Roles
 
@@ -35,4 +30,23 @@ public IActionResult Admin()
 {
   return View();
 }
+```
+
+## Ensure the Roles scope is requested
+
+You will also need to ensure that you request the `roles` scope. This will ensure that the `roles` claim is returned in the `id_token`. Go back to the `Configure` method of the `Startup` class and update the registration of the OIDC middleware to request the `roles` scope:
+
+```csharp
+var options = new OpenIdConnectOptions("Auth0")
+{
+    // Code omitted for brevity...
+};
+options.Scope.Clear();
+options.Scope.Add("openid");
+options.Scope.Add("name");
+options.Scope.Add("email");
+options.Scope.Add("picture");
+options.Scope.Add("country");
+options.Scope.Add("roles");
+app.UseOpenIdConnectAuthentication(options);
 ```

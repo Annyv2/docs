@@ -7,6 +7,8 @@ description: Appliance infrastructure information about Networks
 
 This document details the requirements for the network on which the Appliance runs.
 
+> Auth0 Appliance can only be deployed in 1 NIC.
+
 ## IP Addresses
 
 Each Appliance virtual machine (VM) must have its own private static IP address and outbound access. This can be accomplished through:
@@ -16,11 +18,10 @@ Each Appliance virtual machine (VM) must have its own private static IP address 
 
 For **multi-node** clusters, all virtual machines must be:
 * on the same segment of the internal network;
-* able to communicate between each other via ports `7777` and `27017`.
+* able to communicate between each other via ports `7777`, `27017`, `8721`, and `8701`.
+* able to reach the load balancer via port `443`.
 
 > Production and non-Production (test/development) must be on completely isolated networks.
-
-For **Webtasks**, ports `8721` and `8701` need to be open from cross-Virtual Machine communication.
 
 For a full list of IP addresses, domains, and ports used by the Appliance clusters, as well as what they are used for, please see [Appliance Infrastructure: IP/Domain and Port List](/appliance/infrastructure/ip-domain-port-list).
 
@@ -33,10 +34,11 @@ Since the Appliance is delivered as a subscription-based managed service, Auth0 
 
 ## DNS Records
 
-DNS records are required for all Appliance instances (development/test *and* production). A standard single-node or cluster deployment requires three DNS entries for the following:
+DNS records are required for all Appliance instances (development/test *and* production). A standard single-node or cluster deployment requires four DNS entries for the following:
 
 * **Management Dashboard**: the Management Dashboard is the web interface that acts as a client for the configuration and application tenants on the Appliance;
 * **Root Tenant Authority**: the tenant on the Appliance that controls Appliance settings, configuration, and local Dashboard Admin users;
+* **webtask**: webtask DNS is used for web extensions and to use Webtasks externally;
 * **App Tenant**: the tenant on the Appliance created for your apps. It manages settings for your apps, user profiles, rules, etc. This is the tenant you will interact with primarily through the Management Dashboard and the API.
 
 Please refer to the [DNS page](/appliance/infrastructure/dns) for additional requirements.

@@ -1,9 +1,10 @@
 ---
 title: Customizing Lock
 description: This tutorial demonstrates how to customize the Lock widget
+budicon: 285
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-javascript-spa',
   path: '10-Customizing-Lock'

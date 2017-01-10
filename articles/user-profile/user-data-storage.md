@@ -1,6 +1,7 @@
 ---
 title: User Data Storage Guidance
 description: Demonstrating the best practices in using Auth0 storage mechanisms through the scenario of a native Swift app with a Node API backend.
+toc: true
 ---
 
 # User Data Storage Guidance
@@ -56,7 +57,7 @@ var playlists = require('./routes/playlists');
 var displayName = require('./routes/displayName');
 
 var authenticate = jwt({
-  secret: new Buffer(process.env.AUTH0_CLIENT_SECRET, 'base64'),
+  secret: process.env.AUTH0_CLIENT_SECRET,
   audience: process.env.AUTH0_CLIENT_ID
 });
 
@@ -143,7 +144,7 @@ function (user, context, callback) {
     issuer: 'https://example.auth0.com'
   };
 
-  var id_token = jwt.sign(scope, new Buffer(CLIENT_SECRET, 'base64'), options);
+  var id_token = jwt.sign(scope, CLIENT_SECRET, options);
 
   var auth = 'Bearer ' + id_token;
 

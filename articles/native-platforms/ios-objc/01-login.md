@@ -2,25 +2,19 @@
 title: iOS Objective-C
 default: true
 description: This tutorial demonstrates how to use the Auth0 iOS Objective-C SDK to add authentication and authorization to your mobile app
+budicon: 448
 ---
 
 <%= include('../../_includes/_package', {
-  pkgRepo: 'native-mobile-samples',
-  pkgBranch: 'master',
-  pkgPath: 'iOS/basic-sample',
-  pkgFilePath: 'iOS/basic-sample/basic-sample/Info.plist',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-ios-objc-sample',
+  path: '01-Login',
+  requirements: [
+    'CocoaPods 0.39.0',
+    'XCode 7.2.1',
+    'Simulator - iOS 9.2 - iPhone 6'
+  ]
 }) %>
-
-
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-* CocoaPods 0.39.0
-* XCode 7.2.1
-* Simulator - iOS 9.2 - iPhone 6
-:::
-
-
 
 ## Initial Setup
 
@@ -141,24 +135,31 @@ A0FacebookAuthenticator *facebook = [A0FacebookAuthenticator newAuthenticatorWit
 
 1. Add Lock Twitter's Pod
 
-`pod 'Lock-Twitter', '~> 1.1'`
+`pod 'Lock-Twitter', '~> 2.0'`
 
-2. Add to the import:
+2. Import the Lock-Twitter Class
 
 `#import <Lock-Twitter/A0TwitterAuthenticator.h>`
 
-3. Configure Auth0 Twitter authenticator after you initialize `A0Lock`:
+3. Configure Auth0 Twitter Authenticator
 
 ```objc
-NSString *twitterApiKey = ... //Remember to obfuscate your api key
-NSString *twitterApiSecret = ... //Remember to obfuscate your api secret
-A0TwitterAuthenticator *twitter = [A0TwitterAuthenticator newAuthenticatorWithKey:twitterApiKey andSecret:twitterApiSecret];
-[lock registerAuthenticators:@[twitter]];
+NSString *twitterApiKey = ...
+A0TwitterAuthenticator *twitter = [A0TwitterAuthenticator newAuthenticationWithConsumerKey:twitterApiKey];
+```
+
+Register the `A0TwitterAuthenticator` instance with your `A0Lock` instance if native integration is available. Lock-Twitter does not default to an OAuth flow, so a check should be made to determine if native authentication is available. If it is, the integration can be registered.
+
+```objc
+A0Lock *lock = ... // Get your instance of A0Lock
+if ([A0TwitterAuthenticator canUseNativeTwitterAuthentication]) {
+    [lock registerAuthenticators:@[twitter]];
+}
 ```
 
 **NOTE:** For more information on configuring your app for Twitter, see: [Connect your app to Twitter](/connections/social/twitter).
 
-## Implement the login
+## Implement the Login
 
 Now you are ready to implement the Login using Lock. You only need to instantiate and present it from any of your `UIViewControllers`, like this:
 

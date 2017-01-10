@@ -1,16 +1,16 @@
 ---
 title: User Profile
 description: This tutorial will show you how to integrate Auth0 with Angular2 to authenticate and fetch/show profile information.
+budicon: 292
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-angularjs2-systemjs-sample',
-  pkgBranch: 'master',
-  pkgPath: '04-User-Profile',
-  pkgFilePath: '04-User-Profile/app/auth.config.ts',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-angularjs2-systemjs-sample',
+  path: '04-User-Profile',
+  requirements: [
+    'Angular 2.0.1'
+  ]
 }) %>
 
 In this step, we will retrieve and display user profile information using the same `Auth` service defined in the [Login](/quickstart/spa/angular2/01-login) tutorial.
@@ -22,7 +22,7 @@ To fetch user profile information, call the `lock.getProfile` function, specifyi
 Once the user profile is retrieved, we can store it in `localStorage` (or another form of storage if you prefer) and assign it to a `userProfile` attribute so you can access it later.
 
 ```typescript
-// ./auth.service.ts
+// auth.service.ts
 
 import {Injectable} from '@angular/core';
 import {tokenNotExpired} from 'angular2-jwt';
@@ -58,16 +58,14 @@ export class Auth {
         this.userProfile = profile;
       });
     });
-  };
-
-  ...
+  }
 
   public logout() {
     // Remove token and profile from localStorage
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     this.userProfile = undefined;
-  };
+  }
 }
 ```
 
@@ -114,8 +112,6 @@ You can add additional input fields to Lock's sign up form by adding `additional
 ```typescript
 // auth.service.ts
 
-...
-
   // Configure Auth0
   lock = new Auth0Lock('${account.clientId}', '${account.namespace}', {
     additionalSignUpFields: [{
@@ -128,8 +124,6 @@ You can add additional input fields to Lock's sign up form by adding `additional
       }
     }]
   });
-
-...
 ```
 
 Each `additionalSignUpFields` value is saved to the profile in the `user_metadata` attribute of the user's Auth0 profile.
@@ -149,10 +143,11 @@ You can add an `address` attribute to the user profile's `user_metadata` by crea
 
 To call the endpoint, you can use the [AuthHttp](https://github.com/auth0/angular2-jwt#sending-authenticated-requests) helper from `angular2-jwt` which provides the same interface as the `Http` module but automatically adds the authorization header to requests.
 
-First, add `AUTH_PROVIDERS` from `angular-jwt`:
+First, add `AUTH_PROVIDERS` from `angular2-jwt`:
 
 ```typescript
-/* ===== app/app.module.ts ===== */
+// app/app.module.ts
+
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { AppComponent } from './app.component';
 
@@ -161,12 +156,12 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   providers: [
-    ...
+    // ...
     AUTH_PROVIDERS,
-    ...
+    // ...
   ],
   imports: [
-    ...
+    // ...
   ],
   bootstrap: [AppComponent]
 })
@@ -200,7 +195,7 @@ export class ProfileEdit {
     var headers: any = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    };
+    }
 
     var data: any = JSON.stringify({
       user_metadata: {

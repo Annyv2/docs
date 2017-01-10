@@ -1,22 +1,18 @@
 ---
 title: Custom Login
 description: This tutorial will teach you how to perform Login and Sign Up by using your own View Controllers, without using the Lock widget interface.
+budicon: 448
 ---
 
-::: panel-info System Requirements
-This tutorial and seed project have been tested with the following:
-
-* CocoaPods 1.0.0
-* Xcode 7.3 (7D175)
-* Simulator - iPhone 6 - iOS 9.3 (13E230)
-  :::
-
 <%= include('../../_includes/_package', {
-  pkgRepo: 'native-mobile-samples',
-  pkgBranch: 'master',
-  pkgPath: 'iOS/basic-sample-objc',
-  pkgFilePath: 'iOS/basic-sample-objc/ObjCSample/Info.plist',
-  pkgType: 'replace'
+  org: 'auth0',
+  repo: 'native-mobile-samples',
+  path: 'iOS/basic-sample-objc',
+  requirements: [
+    'CocoaPods 1.0.0 ',
+    'Xcode 7.3 (7D175)',
+    'Simulator - iPhone 6 - iOS 9.3 (13E230)'
+  ]
 }) %>
 
 ### Setting up Auth0
@@ -179,7 +175,7 @@ If you are going to let the user sign in, you'll probably need to let the user t
                 // Something went wrong, let the user know
             } else {
                 // You signed up correctly, and you have the Credentials,
-                // so no need to make the user login. He's already in.
+                // so no need to make the user login. They are already in.
             }
         });
 }];

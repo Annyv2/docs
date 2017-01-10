@@ -1,19 +1,19 @@
 ---
 title: Authorization
 description: This tutorial demonstrates how to assign roles to your users and use those claims to authorize or deny a user to access certain routes in the app
+budicon: 500
 ---
 
 <%= include('../../_includes/_package', {
-  githubUrl: 'https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample',
-  pkgOrg: 'auth0-samples',
-  pkgRepo: 'auth0-angularjs2-systemjs-sample',
-  pkgBranch: 'master',
-  pkgPath: '07-Authorization',
-  pkgFilePath: '07-Authorization/app/auth.config.ts',
-  pkgType: 'replace'
+  org: 'auth0-samples',
+  repo: 'auth0-angularjs2-systemjs-sample',
+  path: '07-Authorization',
+  requirements: [
+    'Angular 2.0.1'
+  ]
 }) %>
 
-<%= include('../_includes/_authorization-introduction', { ruleslink: '/docs/quickstart/spa/angular2/06-rules' }) %>
+<%= include('../_includes/_authorization-introduction', { ruleslink: '/quickstart/spa/angular2/06-rules' }) %>
 
 ### Create a Rule to Assign Roles
 
@@ -91,15 +91,11 @@ The `canActivate` method checks if the user is authenticated and then checks if 
 ```typescript
 // app/auth.service.ts
 
-...
-
 public isAdmin() {
   return this.userProfile && this.userProfile.app_metadata
     && this.userProfile.app_metadata.roles
     && this.userProfile.app_metadata.roles.indexOf('admin') > -1;
 }
-
-...
 ```
 
 Since the user's `app_metadata` is read-only for users, checking for their role in this fashion is secure.
@@ -109,11 +105,9 @@ After logging in successfully, the user will be redirected to the saved URL:
 ```typescript
 // app/auth.service.ts
 
-...
-
 // Fetch profile information
 this.lock.getProfile(authResult.idToken, (error, profile) => {
-  ...
+  // ...
 
   // Redirect to the saved URL, if present.
   var redirectUrl: string = localStorage.getItem('redirect_url');
@@ -122,9 +116,6 @@ this.lock.getProfile(authResult.idToken, (error, profile) => {
     localStorage.removeItem('redirect_url');
   }
 });
-...
 ```
 
 Now, if a user logs in with an email that contains `@example`, they will be allowed access to the `/admin` route.
-
-

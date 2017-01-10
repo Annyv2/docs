@@ -1,42 +1,19 @@
 ---
 order: 04
-title: SSO for Regular Web Apps
-image: /docs/media/articles/architecture-scenarios/web-oidc.png
+title: Single Sign-On for Regular Web Apps
+image: /media/articles/architecture-scenarios/web-oidc.png
 extract: Traditional web application which needs to authenticate users using OpenID Connect.
 description: Regular web app scenario which needs to authenticate users using OpenID Connect.
+toc: true
 ---
 
-# SSO for Regular Web Apps
+# Single Sign-On for Regular Web Apps
 
 In this scenario we will build a web application for a fictitious company named ABC Inc. The app is meant to be used by ABC's employees and contractors. Employees will use their existing corporate directory (Active Directory), while contractors will be managed in a separate user store.
 
 ::: panel-info NOTE
 By _Regular Web App_, we mean an app that uses primarily server side, page `GET`, `POST`, and cookies for maintaining state. This is contrast with a Web _SPA_ (Single Page App), that heavily relies on client side JavaScript code calling an API.
 :::
-
-__Table of Contents__
-- [The Premise](#the-premise)
-  - [Goals & Requirements](#goals-requirements)
-- [Overview of the Solution](#overview-of-the-solution)
-  - [Identity Management](#identity-management)
-  - [Which protocol to use](#which-protocol-to-use)
-  - [Authentication Flow](#authentication-flow)
-    - [How to validate an ID Token](#how-to-validate-an-id-token)
-- [Auth0 Configuration](#auth0-configuration)
-  - [Client](#client)
-    - [Create a Client](#create-a-client)
-    - [Configure Callback URLs](#configure-callback-urls)
-  - [Connections](#connections)
-    - [Create a database connection](#create-a-database-connection)
-    - [Create an Active Directory / LDAP Connection](#create-an-active-directory-ldap-connection)
-- [Inside the Implementation](#inside-the-implementation)
-  - [User Login](#user-login)
-    - [Automate Home Realm Discovery (HRD)](#automate-home-realm-discovery-hrd-)
-  - [Session Management](#session-management)
-  - [User Logout](#user-logout)
-  - [Access Control](#access-control)
-    - [Install the Authorization Extension](#install-the-authorization-extension)
-- [Conclusion](#conclusion)
 
 ## The Premise
 
@@ -169,7 +146,7 @@ The term "client" does not imply any particular implementation characteristics. 
 The main characteristics of a Client in Auth0 are:
 - __Name__: The canonical name of the client. This is used to identify the client at the portal, emails, logs, and more.
 - __Client ID__ (read-only): The unique identifier for the client. This is the ID used in the application when setting up authentication with Auth0. It is an auto-generated alphanumeric string.
-- __Client secret__ (read-only): A base64 encoded string, used to sign and validate tokens which will be used in the different authentication flows. It is auto-generated and it must be kept confidential.
+- __Client secret__ (read-only): A string used to sign and validate tokens which will be used in the different authentication flows. It is auto-generated and it must be kept confidential.
 - __Domain__: The domain name assigned to the Auth0 account. The format of the domain is `{account-name}.auth0.com` or `{account-name}.{location}.auth0.com`, for example `abc.auth0.com`.
 - __Callback URL__: The URL where the user is redirected after they authenticate.
 
@@ -273,7 +250,7 @@ By default, Lock will display all the connections available for login. Selecting
 
 You may however want to avoid that first step, where the user needs to choose the Identity Provider (IdP), and have the system identify it instead of asking every time. Lock offers you the following options:
 
-- __Identify the IdP programatically__: When you initiate an authentication transaction with Auth0 you can optionally send a `connection` parameter. This value maps directly with any connection defined in your dashboard. When using the Hosted version of Lock by calling the [`/authorize`](https://auth0.com/docs/api/authentication#!#get--authorize_db) endpoint, you can pass along a `connection` query string parameter containing the name of the connection. Alternatively, if you are using Embedded Lock, this is as simple as writing `auth0.show({connections: ['YOUR_CONNECTION']});`.
+- __Identify the IdP programatically__: When you initiate an authentication transaction with Auth0 you can optionally send a `connection` parameter. This value maps directly with any connection defined in your dashboard. When using the Hosted version of Lock by calling the [`/authorize`](/api/authentication/reference#database-ad-ldap-passive-) endpoint, you can pass along a `connection` query string parameter containing the name of the connection. Alternatively, if you are using Embedded Lock, this is as simple as writing `auth0.show({connections: ['YOUR_CONNECTION']});`.
 
   There are multiple practical ways of getting the `connection` value. One of them is to use __vanity URLs__: for example, company employees will use `https://internal.yoursite.com`, while external contractors will use `https://external.yoursite.com`.
 
@@ -315,7 +292,7 @@ Auth0 manages its own single-sign-on session. Applications can choose to honor o
 If they do so, they are signed in without having to re-enter their credentials with the actual IDP.  Even though the user didn't authenticate, the application still performs an authentication flow with Auth0 and obtains a new `id_token`, which can be used to then manage the new local application session.
 :::
 
-See the implementation in [ASP.NET Core](/architecture-scenarios/application/web-app-sso/login-aspnetcore).
+**See the implementation in [ASP.NET Core](/architecture-scenarios/application/web-app-sso/implementation-aspnetcore#configure-the-cookie-and-oidc-middleware)**.
 
 ### User Logout
 
@@ -336,7 +313,7 @@ The logout flow (not including federated logout) is as follows:
 1. __Clear SSO Cookie__: Auth0 will clear the user's SSO Cookie.
 1. __Redirect to post-logout URL__: Auth0 will return a redirect response and redirect the user's browser to the `returnTo` querystring parameter.
 
-See the implementation in [ASP.NET Core](/architecture-scenarios/application/web-app-sso/logout-aspnetcore).
+**See the implementation in [ASP.NET Core](/architecture-scenarios/application/web-app-sso/implementation-aspnetcore#implement-the-logout)**.
 
 ### Access Control
 
@@ -409,7 +386,7 @@ When you installed the Authorization Extension, it also created an Auth0 rule wh
 
 In your application you will therefore need to decode the ID Token returned when a user is authenticated, and extract the groups which a user belongs to from the `authorization` claim. You can then store these groups, along with other user information inside the user's session, and subsequently query these to determine whether a user has permissions to perform a certain action based on their group membership.
 
-See the implementation in [ASP.NET Core](/architecture-scenarios/application/web-app-sso/authorization-aspnetcore).
+**See the implementation in [ASP.NET Core](/architecture-scenarios/application/web-app-sso/implementation-aspnetcore#implement-admin-permissions)**.
 
 ## Conclusion
 

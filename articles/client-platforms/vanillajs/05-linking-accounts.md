@@ -1,9 +1,10 @@
 ---
 title: Linking Accounts
 description: This tutorial demonstrates how to link different user accounts in your web app
+budicon: 345
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-javascript-spa',
   path: '05-Linking-Accounts'
@@ -14,8 +15,6 @@ description: This tutorial demonstrates how to link different user accounts in y
 
 ```js
 // app.js
-
-...
 
 var lock = new Auth0Lock('<%= account.clientId %>', '<%= account.namespace %>');
 
@@ -31,15 +30,12 @@ lockLink = new Auth0Lock('<%= account.clientId %>', '<%= account.namespace %>', 
     title: 'Link with:'
   }
 });
-...
 ```
 
 When setting the callback for the `authenticated` event with the `on` method, you can determine which login was executed by checking the value of the `authResult.state` attribute.
 
 ```js
 // app.js
-
-...
 
 lock.on('authenticated', function(authResult) {
   // Every lock instance listens to the same event, so we need to check if
@@ -74,16 +70,12 @@ lockLink.on('authenticated', function(authResult) {
     linkAccount(authResult.idToken);
   }
 });
-
-...
 ```
 
 Now that the second login is handled, you will need to actually do the linking.
 
 ```js
 // app.js
-
-...
 
 var linkAccount = function(id_token) {
 
@@ -108,8 +100,6 @@ var linkAccount = function(id_token) {
 
   xhr.send(data);
 };
-
-...
 ```
 
 The function takes the `id_token` of the account to link with and posts to the API, passing the `link_with` parameter with the `id_token` value in the body. If the request is successful, it fetches the profile to ensure that the accounts are linked.
@@ -119,22 +109,14 @@ To begin the linking process, call the `show` method on `lockLink` instance:
 ```js
 // app.js
 
-...
-
 document.getElementById('btn-link-account').addEventListener('click', function() {
   lockLink.show();
 });
-
-...
 ```
 
 ```html
 
-...
-
 <button type="button" class="btn btn-default" id="btn-link-account">Link Account</button>
-
-...
 ```
 
 ## User Profile from the Linked Accounts
@@ -152,17 +134,12 @@ If you fetch the profile after linking accounts, this same information will be a
 ```html
 <!-- index.html -->
 
-...
-
 <h3>Linked accounts</h3>
 <ul id="linked-accounts-list"></ul>
-
-...
 ```
 
 ```js
 // app.js
-...
 
 var showUserIdentities = function(profile) {
 
@@ -184,8 +161,6 @@ var showUserIdentities = function(profile) {
   document.getElementById('linked-accounts-list').innerHTML = linked_accounts;
   bind_unlink_buttons();
 };
-
-...
 ```
 
 ## Unlinking Accounts
@@ -194,8 +169,6 @@ You can disassociate a linked account by calling the [unlink a user account](/ap
 
 ```js
 // app.js
-
-...
 
 var unlinkAccount = function(identity) {
 
@@ -219,5 +192,4 @@ var unlinkAccount = function(identity) {
 
   xhr.send();
 };
-...
 ```

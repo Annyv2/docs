@@ -49,7 +49,7 @@ The following is a set of guidelines for contributing to the Auth0 documentation
 * Read and follow the [Style Guide](STYLEGUIDE.md).
 * Consult the [Words](WORDS.md) document for Auth0 specific spellings and definitions.
 * Always use relative URLs for internal `auth0.com/docs` links. For example, if the absolute path to the document is `https://auth0.com/docs/identityproviders`, use `/identityproviders`. These links will be correctly formatted in the build process.
-* Do not hard code links to Auth0 sites like `docs.auth0.com` or `manage.auth0.com`. Instead, use [Parameter Aliases](#parameter-aliases), such as `${uiUrl}`.
+* Do not hard code links to Auth0 sites like `docs.auth0.com` or `manage.auth0.com`. Instead, use [Parameter Aliases](#parameter-aliases), such as `${manage_url}`.
 * Name files with all lowercase using dashes (-) to separate words. If using a date in the file name, it should be in the format YYYY-MM-DD. For example, `this-is-my-file.md` or `this-is-a-title-2015-10-01.md`.
 * Do not store images in external locations like Dropbox, CloudUp, or the Auth0 CDN. Link to images in this repo using a relative path `![ALT_TEXT](/media/folder/image-name.png)`. The image will be uploaded to the CDN and the link will be formatted during the build process. Do not forget to set the alternate text for each image.
 * Keep images to no more than 750 pixels wide.
@@ -446,7 +446,7 @@ In the case of things like iOS and Android samples, we should build with multipl
 3. No need to write code or specialized guide for mobile until we allow users to enroll mfa from mobile apps. Currently is web only
 
 ### Seed Projects
-Each quickstart should have a seed project. The seed projects are hosted in github in the `auth0-samples` organization. In order to add a seed project to a quickstart simply use the `_package2` include.
+Each quickstart should have a seed project. The seed projects are hosted in github in the `auth0-samples` organization. In order to add a seed project to a quickstart simply use the `_package` include.
 
 The seed project packager service replaces placeholder configuration values with the values of the user's real application. This means the sample is ready to use without additional configuration. The strings that get set are shown below.
 
@@ -475,10 +475,14 @@ AUTH0_CLIENT_SECRET={CLIENT_SECRET}
 ##### Include Code
 
 ```
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'node-auth0',
-  path: 'examples/nodejs-regular-webapp'
+  path: 'examples/nodejs-regular-webapp',
+  requirements: [
+    'Requirement 1.0.0',
+    'Requirement 2.0.0'
+  ]
 }) %>
 ```
 
@@ -490,6 +494,7 @@ The follow are the values for the package configuration.
 | `org` | The organization of the github repo. Can be `auth0` or `auth0-samples`. |
 | `repo` | The name of the github repository. |
 | `path` | The path where the sample is contained. This will be the folder that gets downloaded. |
+| `requirements` | An array of strings representing the system requirements for the project and article. |
 
 ## Updates Feed
 Publishing content updates is easy. Just create a yml file in the `/updates` folder in the format `YYYY-MM-DD.yml`. The document should be in the following format. There are three sections of content: added, changed, and fixed. If you are releasing a new thing (such as a new tutorial, document, or new version of an SDK) put it under `added`. Otherwise use `changed` or `fixed`.

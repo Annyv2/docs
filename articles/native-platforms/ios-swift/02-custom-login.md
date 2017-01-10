@@ -1,12 +1,18 @@
 ---
 title: Custom Login
 description: This tutorial demonstrates how to perform Login and Sign Up by using your own View Controllers, without using the Lock widget interface.
+budicon: 448
 ---
 
-<%= include('../../_includes/_package2', {
+<%= include('../../_includes/_package', {
   org: 'auth0-samples',
   repo: 'auth0-ios-swift-sample',
-  path: '02-Custom-Login'
+  path: '02-Custom-Login',
+  requirements: [
+    'CocoaPods 1.0.0',
+    'XCode 7.3 (7D175)',
+    'iPhone 6 - iOS 9.3 (13E230)'
+  ]
 }) %>
 
 ## Implement the Login
