@@ -4,6 +4,7 @@ toc: true
 url: /libraries/lock
 title: Lock for Web
 description: A widget that provides a frictionless login and signup experience for your web apps.
+img: media/articles/libraries/lock-web.png
 ---
 
 # Lock for Web
@@ -51,7 +52,7 @@ Include via our CDN:
 If you are targeting mobile audiences, Auth0 recommends that you add the following meta tag to your application's `head`:
 
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 ```
 
 ### Bundling Dependencies
@@ -71,14 +72,14 @@ var lock = new Auth0Lock(
 
 // Listening for the authenticated event
 lock.on("authenticated", function(authResult) {
-  // Use the token in authResult to getProfile() and save it to localStorage
-  lock.getProfile(authResult.idToken, function(error, profile) {
+  // Use the token in authResult to getUserInfo() and save it to localStorage
+  lock.getUserInfo(authResult.accessToken, function(error, profile) {
     if (error) {
       // Handle error
       return;
     }
 
-    localStorage.setItem('idToken', authResult.idToken);
+    localStorage.setItem('accessToken', authResult.accessToken);
     localStorage.setItem('profile', JSON.stringify(profile));
   });
 });
@@ -96,7 +97,7 @@ document.getElementById('btn-login').addEventListener('click', function() {
 
 ```js
 // Verify that there's a token in localStorage
-var token = localStorage.getItem('idToken');
+var token = localStorage.getItem('accessToken');
 if (token) {
   showLoggedIn();
 }
@@ -120,7 +121,7 @@ function showLoggedIn() {
 
 ## Browser Compatibility
 
-Browser compatibility is ensured for **Chrome**, **Safari**, **Firefox** and **IE >= 9**. Auth0 currently uses [zuul](https://github.com/defunctzombie/zuul) along with [Saucelabs](https://saucelabs.com) to run integration tests on each push.
+Browser compatibility is ensured for **Chrome**, **Safari**, **Firefox** and **IE >= 10**. Auth0 currently uses [zuul](https://github.com/defunctzombie/zuul) along with [Saucelabs](https://saucelabs.com) to run integration tests on each push.
 
 <!--vars-->
 
