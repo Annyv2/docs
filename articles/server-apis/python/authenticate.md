@@ -14,7 +14,7 @@ You can get started by either downloading the seed project or if you would like 
     'Python 2.7',
     'Flask 0.10.1',
     'Flask-Cors 2.1.0',
-    'PyJWT 1.4.0'
+    'Python-Jose 1.3.2'
   ]
 }) %>
 
@@ -41,14 +41,14 @@ ${snippet(meta.snippets.use)}
 
 ### 4. Call Your API
 
-You can now make requests against your secure API by providing the Authorization header in your requests with a valid JWT id_token.
+You can now make requests against your secure API by providing the Authorization header in your requests with a valid JWT access_token.
 
 ```har
 {
   "method": "GET",
   "url": "http://localhost:8000/path_to_your_api",
   "headers": [
-    { "name": "Authorization", "value": "Bearer YOUR_ID_TOKEN_HERE" }
+    { "name": "Authorization", "value": "Bearer YOUR_ACCESS_TOKEN_HERE" }
   ]
 }
 ```
@@ -56,13 +56,3 @@ You can now make requests against your secure API by providing the Authorization
 ### 5. You're done!
 
 Now you have both your frontend and backend configured to use Auth0. Congrats, you're awesome!
-
-### Note for Python 2.7
-
-If you're using Python 2.7 and you already have the `jwt` package installed, you need to do the following to get this working:
-
-```bash
-pip uninstall jwt
-pip uninstall pyjwt
-pip install pyjwt
-```
